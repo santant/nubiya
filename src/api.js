@@ -119,7 +119,7 @@ const GIFT_CARD_LIST = `${COUPON_HOST}/artup-coupon-api/f/giftcard/queryGiftcard
 //礼品卡兑换
 const GIFT_CARD_CHANGE = `${COUPON_HOST}/artup-coupon-api/f/giftcard/usedGiftcard`
 //获取用户信息
-const GET_USER_INFO = `${GET_USERINFO_HOST}/artup-user-api/f/userInfo`
+const GET_USER_INFO = `${GET_USERINFO_HOST}artup-channel-api/account/userInfo`
 
 
 ////只要访问ajax的时候，没有这个用户信息，就跳到首页去登录获取用户信息
