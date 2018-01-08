@@ -1,7 +1,9 @@
 <template>
 	<div id="index" style="width: 100%;height:100%;">
-		<p>404</p>
-		<p>您请求的页面不存在!!</p>
+		<div >
+			<p class="class_4">404</p>
+			<p class="class_msg">您请求的页面不存在!!</p>
+		</div>
 	</div>
 
 </template>
@@ -12,7 +14,8 @@
 	export default {
 		data() {
 			return {
-				indexImg: []
+				indexImg: [],
+//				isShow:false
 			}
 		},
 		methods: {
@@ -50,6 +53,7 @@
 							this.$router.push({path:"/hbMsg",query:{"category":"kuanghua"}})
 							break;
 						default:
+							
 							break;
 					}
 				}
@@ -86,65 +90,17 @@
 </script>
 
 <style>
-	.a_herf {
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-	
-	.a_herf>img {
-		display: block;
-		width: 100%;
-	}
-	
-	.gqfhtz {
-		width: 100%;
-		height: 100%;
-		position: fixed;
-		z-index: 999;
-		display: none;
-		overflow-y: auto;
-		background-image: url("http://image2.artup.com/resources/static/pc/images/gqfhtz_02.jpg");
-	}
-	
-	.content {
-		width: 17.77rem;
-		height: 100%;
-		margin: 0 auto;
-		margin-bottom: 3rem;
-	}
-	
-	.content h2 {
-		width: 100%;
+	#index .class_4{
 		text-align: center;
-		font-size: 1.03rem;
-		color: #bc1b00;
-		height: 5.18rem;
-		line-height: 5.18rem;
+		line-height: 96px;
+		font-size:3rem ;
+		color: #a1a1a1;
+		margin-top: 2rem;
 	}
-	
-	.content .wzList {
-		margin-top: 0.2rem;
-	}
-	
-	.content .wzList h1 {
-		font-size: 0.8rem;
-		line-height: 1.11rem;
-		color: #712d00;
-		font-weight: 500;
-	}
-	
-	.content .wzList p {
-		text-indent: 0.8rem;
-		font-size: 0.8rem;
-		line-height: 1.1rem;
-		color: #712d00;
-	}
-	
-	.lastP {
+	#index .class_msg{
+		line-height: 2rem;
+		font-size: 1rem;
 		text-align: center;
-		/*font-size: 0.648rem !important;*/
-		margin-top: 2.03rem;
-		font-weight: 500;
+		color: #666;
 	}
 </style>
