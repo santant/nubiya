@@ -18,7 +18,7 @@
       <i class="iconfont icon-kuaidi"></i>
       <span class="express-text">顺丰快递</span>
       <div class="express-details">
-        <span class="express-number">123456789</span>
+        <span class="express-number">物流单号　123456789</span>
         <button class="copy-btn">复制</button>
       </div>
     </div>
@@ -28,6 +28,7 @@
       <span class="address-phone">130****5415</span>
       <span class="address-details">北京市-顺义区-高立庄1号</span>
     </div>
+    <div class="border"></div>
     <div class="order-goods-list">
       <div class="order-goods-item">
         <div class="thumbnail"></div>
@@ -106,8 +107,62 @@
 
 <style lang="less" type="text/less" rel="stylesheet/less">
   .order-details {
-    .order-state {
-
+    color: #333;
+    font-size: .8rem;
+    background: #f4f5f5;
+    .iconfont {
+      display: inline-block;
+      width: 1.5em;
+      color: #9698a1;
+    }
+    .order-state, .making, .express, .address-info {
+      padding: 0 .66rem 0 .8rem;
+      line-height: 2.4rem;
+      background: #fff;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .order-state .order-amount {
+      float: right;
+    }
+    .express {
+      padding: .4rem .66rem .45rem .8rem;
+      line-height: 1;
+      .express-details {
+        margin-top: .6rem;
+        padding-left: 1.9em;
+        line-height: 1.2rem;
+        vertical-align: middle;
+      }
+      .express-number {
+        line-height: 24px;
+      }
+      .copy-btn {
+        line-height: 24px;
+        box-sizing: border-box;
+        padding: 0 .6rem;
+        margin-left: .4rem;
+        font-size: .48rem;
+        color: #999;
+        border: 1px solid #c7c7c7;
+        background: #fff;
+      }
+    }
+    .address-info {
+      padding: 1rem .66rem 1rem .8rem;
+      line-height: 1;
+      .address-name, .address-phone {
+        font-weight: bold;
+      }
+      .address-details {
+        display: block;
+        padding-left: 1.9em;
+        margin-top: .9rem;
+      }
+    }
+    .border {
+      height: 4px;
+      background: url('../../assets/img/border-3l.png');
+      background-size: 100% 100%;
     }
   }
 </style>
