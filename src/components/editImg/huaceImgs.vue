@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Api from '../../API.js'
+import Api from '@/api.js'
 import { Swipe, SwipeItem,Indicator } from 'mint-ui';
 export default {
   data () {
-    return { 
+    return {
 	    dataImg:{ //img
 	      	 imgArrType:[
                 huaCeData.bbs1,
@@ -50,14 +50,14 @@ export default {
       	 dataMsg:{
       	 	title:"拾光集",
       	 	titleEdit:"拾光集预览",
-      	 	tplCode:"huace_170-235_24", 
+      	 	tplCode:"huace_170-235_24",
       	 	defDbId:"9de2973d-3487-4b05-b556-b9b92dd75493"
       	 }
 	   }
     	}
   },
     methods:{
-    		
+
     },
     mounted(){
 

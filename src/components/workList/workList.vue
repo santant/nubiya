@@ -25,7 +25,7 @@
 						<li ><p :class="works.isOK ? 'circle':'circle circleNone' "><i v-bind:hidden="works.isOK == false" class="icon iconfont">&#xe639;</i></p></li>
 						<li>
 							<img :src="works.thumbnailImageUrl">
-						</li> 
+						</li>
 						<li>
 							<ul>
 								<li>
@@ -57,20 +57,20 @@
 			  </li>
 			</ul>
 			<!--<p class="page-infinite-loading" v-bind:hidden="loading == false">
-		    	  加载中... 
+		    	  加载中...
 		    	 6228484040538704117
 		    </p>-->
 			</div>
-			
+
 		</div>
 	</div>
 </template>
 
 <script>
 	import {Toast, InfiniteScroll,Indicator,MessageBox } from 'mint-ui';
-	import Api from '../../API.js'
+	import Api from '@/api.js'
     import  filter   from '../../filter.js'
-	
+
 	export default{
 		data(){
 			return{
@@ -87,8 +87,8 @@
 				}else{
 					$(params.event.target).addClass('liActive');
 				}
-				var paraJson = { 
-					userDbId:localStorage.getItem('userDbId'), 
+				var paraJson = {
+					userDbId:localStorage.getItem('userDbId'),
 					sortField:"createdDt",
 					pageSize:15,//每页多少条
 					pageNum:this.workPage, //第几页
@@ -147,13 +147,13 @@
                 },err=>{
                     Toast('添加购物车出错');
                 })
-				
+
 			},
 			loadMore() {
 				  this.loading = true;
 			},
 			continueEdit(params){ //继续编辑
-				var jsons = {};	
+				var jsons = {};
 				//更改再次编辑的书皮的颜色
 				console.log(sessionStorage.getItem("bbsSlsectDate"))
 				if(sessionStorage.getItem("bbsSlsectDate")){
@@ -165,7 +165,7 @@
 				 	jsons.skuId  = this.worklist[params.index].skuId
 					jsons.category = this.worklist[params.index].category;
 				}else{
-					
+
 					jsons.colorName = this.worklist[params.index].sku.split('.')[1];
 					jsons.name = this.worklist[params.index].sku;
 					jsons.category = this.worklist[params.index].category;
@@ -175,27 +175,27 @@
 				 	jsons.skuId  = this.worklist[params.index].skuId
 				}
 				this.getPriceAndGo(params,jsons)
-						
+
 			},
 			getPriceAndGo(params,jsons){
 				var paramsJson = {
 					"category": this.worklist[params.index].category,
 					"parameter" : this.worklist[params.index].skuCode
 				};
-				//请求价格:			
-				Api.sku.querySku(paramsJson).then((res)=>{ 
+				//请求价格:
+				Api.sku.querySku(paramsJson).then((res)=>{
 					jsons.price =res.data.price;
 					jsons.skuId = res.data.skuId;
 				    sessionStorage.setItem("bbsSlsectDate",JSON.stringify(jsons));
-				    sessionStorage.setItem('urlQuery', JSON.stringify({"category":""+this.worklist[params.index].category+""}))	
+				    sessionStorage.setItem('urlQuery', JSON.stringify({"category":""+this.worklist[params.index].category+""}))
 					//存入继续编辑页面的id
 					if(this.worklist[params.index].category=="shiguangji"){
 //						location.href = "#huaceImgs?edtDbid="+this.worklist[params.index].dbId;
 						this.$router.push({path:"/huaceImgs",query:{"edtDbid":this.worklist[params.index].dbId}})
-					}else{					
+					}else{
 //						location.href = "#BbsImgs?edtDbid="+this.worklist[params.index].dbId;
 						this.$router.push({path:"/BbsImgs",query:{"edtDbid":this.worklist[params.index].dbId}})
-					}		
+					}
 				})
 			},
 	        linkGo(){
@@ -206,7 +206,7 @@
 				for (var i = 0; i < this.worklist.length; i++) {
 						if (this.worklist[i].isOK) {
 							checkArr.push(this.worklist[i])
-						}					
+						}
 					}
 				if(checkArr.length < 1){
 					Toast('请选择要删除的作品');
@@ -224,32 +224,32 @@
 								arr+= this.worklist[i].dbId+',';
 								this.worklist.splice(i,1);
 								i--;
-							}					
+							}
 						}
 						Api.work.deletWork({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{
 							if(res.data.code == 'success'){
-								
+
 								Toast('作品删除成功');
 								if(this.worklist.length < 1){
 									MessageBox.alert('您当前没有任何作品请去创建').then(action => {
-				        				location.href=""		
+				        				location.href=""
 									});
 								}
 							}
 						},err=>{
 							Toast('请求错误');
 						})
-						
+
 					}
-								
+
 				})
 			}
 		},
 		mounted(){
 			//var category = 'baobaoshu'
 			Indicator.open({text: '作品加载中...',spinnerType: 'fading-circle'});
-			var paraJson = { 
-					userDbId:localStorage.getItem('userDbId'), 
+			var paraJson = {
+					userDbId:localStorage.getItem('userDbId'),
 					sortField:"createdDt",
 					pageSize:15,//每页多少条
 					pageNum:this.workPage, //第几页

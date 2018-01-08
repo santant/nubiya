@@ -4,7 +4,7 @@
 		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		</mt-header>	
+		</mt-header>
 	<div class="bottom">
 	    <div class="description">
 	        <div class="content">
@@ -26,9 +26,9 @@
 	                艺术微喷级输出，画质细腻，色彩层次丰富。
 	            </div>
 	        </div>
-	        <div class="addCon_topPic"> 
+	        <div class="addCon_topPic">
 			<img  :src="imgHost+'static/img/haibao_detail/1.jpg'" class="addRound" />
-	            
+
 	        </div>
 	        <div class="addCon_topPicText">
 	        </div>
@@ -39,9 +39,9 @@
 	                多种尺寸，多种照片组合模版；单独悬挂，或作为画芯装裱，轻松更换。
 	            </div>
 	        </div>
-	        <div class="addCon_topPic"> 
+	        <div class="addCon_topPic">
 			<img  :src="imgHost+'static/img/haibao_detail/2.jpg'" class="addRound" />
-	            
+
 	        </div>
 	        <div class="addCon_midText">
 	            <div class="addCon_midText_up">包装</div>
@@ -50,21 +50,21 @@
 	                采用三角瓦楞或圆筒纸盒包装，确保海报在长途跋涉的过程中免去折叠挤压。
 	            </div>
 	        </div>
-	        <div class="addCon_topPic"> 
+	        <div class="addCon_topPic">
 				<img  :src="imgHost+'static/img/haibao_detail/3.png'" class="addRound" />
 	        </div>
 	    </div>
-	    
+
 	</div>
 	<div class="btn_box">
     	<router-link to="hbSelect?category=haibao">
         <div class="made_btn" style="color: #333;">开始定制</div>
-    </router-link>   
+    </router-link>
     </div>
 	</div>
 </template>
 <script>
-	import Api from '../../../API.js'
+	import Api from '@/api.js'
 import { Swipe, SwipeItem } from 'mint-ui';
 export default {
 	  data () {
@@ -86,5 +86,5 @@ export default {
 
 <style>
 
-	
+
 </style>

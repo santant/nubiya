@@ -7,7 +7,7 @@
 </template>
 
 <script>
-	import Api from '../../API.js'
+	import Api from '@/api.js'
 	import { Swipe, SwipeItem, Indicator } from 'mint-ui';
 	export default {
 		data() {
@@ -33,19 +33,19 @@
 							break;
 					    case "coupon":
 							this.$router.push({path:"/CouponExchange",query:{}})
-							break;	
+							break;
 					    case "haibao":
 							this.$router.push({path:"/hbMsg",query:{"category":"haibao"}})
 							break;
 						case "xiaoshiguang":
 							this.$router.push({path:"/bbsMsg",query:{"category":"xiaoshiguang"}})
-							break;	
+							break;
 					    case "shiguangji":
 							this.$router.push({path:"/huaceMsg",query:{"category":"shiguangji"}})
-							break;		
+							break;
 					   case "taili":
 							this.$router.push({path:"/tlMsg",query:{"category":"taili"}})
-							break;	
+							break;
 					   case "kuanghua":
 							this.$router.push({path:"/hbMsg",query:{"category":"kuanghua"}})
 							break;
@@ -91,12 +91,12 @@
 		width: 100%;
 		height: 100%;
 	}
-	
+
 	.a_herf>img {
 		display: block;
 		width: 100%;
 	}
-	
+
 	.gqfhtz {
 		width: 100%;
 		height: 100%;
@@ -106,14 +106,14 @@
 		overflow-y: auto;
 		background-image: url("http://image2.artup.com/resources/static/pc/images/gqfhtz_02.jpg");
 	}
-	
+
 	.content {
 		width: 17.77rem;
 		height: 100%;
 		margin: 0 auto;
 		margin-bottom: 3rem;
 	}
-	
+
 	.content h2 {
 		width: 100%;
 		text-align: center;
@@ -122,25 +122,25 @@
 		height: 5.18rem;
 		line-height: 5.18rem;
 	}
-	
+
 	.content .wzList {
 		margin-top: 0.2rem;
 	}
-	
+
 	.content .wzList h1 {
 		font-size: 0.8rem;
 		line-height: 1.11rem;
 		color: #712d00;
 		font-weight: 500;
 	}
-	
+
 	.content .wzList p {
 		text-indent: 0.8rem;
 		font-size: 0.8rem;
 		line-height: 1.1rem;
 		color: #712d00;
 	}
-	
+
 	.lastP {
 		text-align: center;
 		/*font-size: 0.648rem !important;*/

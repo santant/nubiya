@@ -13,7 +13,7 @@
 		  <mt-button icon="" id='nt' v-bind:hidden="finishWork == false" v-tap="{methods:nextFn}"  slot="right">下一步</mt-button>
 		  <mt-button icon="" id='gc'  v-tap="{methods:addCar}"  slot="right">加入购物车</mt-button>
 		</mt-header>
-		<div  class="reportNavEdt">		
+		<div  class="reportNavEdt">
 			！图片像素不足，会导致打印模糊，建议更换图片
 		</div>
 		<div class="tlEditTop">
@@ -34,16 +34,16 @@
 				<div class="tiData">{{item.code}}</div>
 			</div>
 		</div>
-		
+
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
 		<!--<div class="addCarBtn" v-bind:hidden="finishWork == true" >加入购物车</div>-->
 		<div class="cart_btn">
 			<div class="price">
 				价格：<span><b>¥</b>{{price}}</span>
-			</div> 
+			</div>
 			<div  v-model="popupVisible" v-tap='{methods:selects}' class="bgrq">
 				变更日期
-				 <input type="hidden" name="su_id" id="suId" style="opacity: 0;" value=""> 
+				 <input type="hidden" name="su_id" id="suId" style="opacity: 0;" value="">
 				 <input type="hidden" name="wei_id" id="weiId" value="" style="opacity: 0;">
 			</div>
 			<div v-bind:hidden="finishWork == true" v-tap="{methods:nextFn}" class="crectOrder">
@@ -55,13 +55,13 @@
 		</div>
 		<edit-img  @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
 	</div>
-	
+
 </template>
 
 <script>
 	import fileLoad from '../../component/publicComponent/fileLoad.vue'
-	import Api from '../../../API.js'	
-	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';	
+	import Api from '@/api.js'
+	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';
 //	import {mapGetters, mapActions} from 'vuex'
 	export default{
 		data(){
@@ -87,14 +87,14 @@
 					category :"taili",
 					client :'mobile',
 					channel:'',
-					userDbId :"", 
+					userDbId :"",
 					picNum : 1,
 					styleType : 1,
 					editCnfName :'',
-					templateCode : '',				
+					templateCode : '',
 					defDbId:''
 				},
-				 
+
 	          	imgData:'',//图片数据
 	          	workEdit:{ //给后端保存或者编辑完成下一步传递的对象
                         format:"json",
@@ -123,7 +123,7 @@
                   updataImgStr:''
 			}
 		},
-		components:{  
+		components:{
 	       fileLoad
 	    },
 		methods:{
@@ -133,7 +133,7 @@
             },
 			selects(){
 				 var _this = this
-				 var sanguoSelect = new IosSelect(2, 
+				 var sanguoSelect = new IosSelect(2,
 		            [suData, weiData],
 		            {
 		                title: '选择日期',
@@ -158,7 +158,7 @@
 					      	    _this.textHashMap.putvalue(i+1,textMapVal)
 					      	 	console.log( _this.textHashMap)
 					      	 }
-							
+
 		                }
 		        });
 		  	 },
@@ -168,7 +168,7 @@
 				this.extraPostData.picPage = index+1;
 				this.updataImgStr = 'upLoad';
 
-				
+
 			},
 			updataImg(params){
 				if(this.finishWork == false){
@@ -177,7 +177,7 @@
 					this.updataImgStr = 'change';
 					this.pageNumber = params.indexs + 1;
 				}
-				
+
 			},
 			editer(params){
 				$(".reportNavEdt").hide();
@@ -196,7 +196,7 @@
 				editData.oSrc = this.ImgHashMap.getvalue(params.indexs+1).thumbnailImageUrl;
 				editData.picNum = params.indexs+1;
 		   		editData.imgSize = {
-		   			oW: $('.myImgBox').width(), 
+		   			oW: $('.myImgBox').width(),
 		   			oH: $('.myImgBox').height()
 		   		};
 		   		editData.customParams = {
@@ -211,21 +211,21 @@
 				editData.actions.dpi = this.ImgHashMap.getvalue(params.indexs+1).actions.dpi;
 				console.log(this.ImgHashMap.getvalue(params.indexs+1))
 				console.log('editData',editData)
-				this.editorImage(editData);			  
+				this.editorImage(editData);
 			   }
 			},
 			 getImg(val){ //获取组件图片
 			 	if(val.dpi== 'false'){
 					$(".reportNavEdt").show();
 				}else{
-					$(".reportNavEdt").hide();	
+					$(".reportNavEdt").hide();
 				}
 			 	if(this.updataImgStr =="change"){
 			 		$('.showImg').eq(this.pageNumber-1).attr('src',val.previewThumbnailImageUrl);
 					$('.showImg').eq(this.pageNumber-1).attr('attrImg',val.thumbnailUrl);//存原图
 					//更新数据
 					this.updataImgData(val,this.pageNumber-1);
-			 		
+
 				}else{
 					$('.showImg').eq(val.picPage-1).attr('src',val.previewThumbnailImageUrl);
 					$('.showImg').eq(val.picPage-1).next('span').show();
@@ -233,7 +233,7 @@
 					$('.showImg').eq(val.picPage-1).attr('attrImg',val.thumbnailUrl);//存原图
 					$('.updateBtn').eq(val.picPage-1).hide();
 					//更新数据
-					this.updataImgData(val,val.picPage-1);					
+					this.updataImgData(val,val.picPage-1);
 				}
 
 			},
@@ -245,23 +245,23 @@
 				 	"page" :page+1,
 				 	"editCnfIndex" :val.styleType,
 				 	"num" : val.picNum,
-				 	
+
 				 	actions : {
 				 	 	"thumbnailScale":val.thumbnailScale,
 				 	 	"minDpiHeight":val.minDpiHeight,
 				 	 	"minDpiWidth":val.minDpiWidth,
 				 	 	'dpi':val.dpi
 				 	 },
-                     "thumbnailImageUrl":val.thumbnailUrl, 
+                     "thumbnailImageUrl":val.thumbnailUrl,
                      "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
                      "cropit" : "false",
                      "editCnfName" : val.editCnfName,
                       "userDbId":val.userDbId
 				 };
-				
+
 				 this.ImgHashMap.putvalue(page+1,picObj)
 				 var tl_code = this.taili[page].code;
-				 var textMapVal = {"content":tl_code,"page":page+1,"num":1,"editCnfIndex":val.styleType,"editCnfName" : val.editCnfName};						
+				 var textMapVal = {"content":tl_code,"page":page+1,"num":1,"editCnfIndex":val.styleType,"editCnfName" : val.editCnfName};
 				 this.textHashMap.putvalue(page+1,textMapVal)
 			},
 			editFinish(data){
@@ -269,7 +269,7 @@
 				if(data.postData.dpi== 'false'){
 					$(".reportNavEdt").show();
 				}else{
-					$(".reportNavEdt").hide();	
+					$(".reportNavEdt").hide();
 				}
 				var imgBox = $('.showImg').eq(data.postData.picPage-1);
 				imgBox.attr('src',data.imgData);
@@ -277,7 +277,7 @@
 					{width:"100%",height:"100%",top:0,left:0}
 				);
 				console.log(this.ImgHashMap.getvalue(data.postData.picPage).actions)
-				this.ImgHashMap.getvalue(data.postData.picPage).actions = data.postData; 
+				this.ImgHashMap.getvalue(data.postData.picPage).actions = data.postData;
 //				console.log(this.ImgHashMap.getvalue(data.postData.picPage))
 			},
 			//调起编辑图片组件
@@ -303,7 +303,7 @@
 					code:"封面"
 				}];
 			 	for(var i=0; i<12; i++){
-			 		
+
 			 		if((parseInt(month)+i) > 12){
 			 			var obj = {
 			 				code:(parseInt(year)+1)+'年'+((parseInt(month)+i) - 12)+"月",
@@ -333,7 +333,7 @@
 				 $('.bgrq').hide();
 				 $('.updateBtn').hide();
 				 $('.reportNavEdt').hide();
-				 
+
 				this.tittle = '台历预览'
 				 for (var i = 0; i < this.ImgHashMap.keys().length; i++) {
 					var picObject = this.ImgHashMap.getvalue(this.ImgHashMap.keys()[i]);
@@ -351,7 +351,7 @@
 					if(this.textHashMap.getvalue(this.textHashMap.keys()[j])){
 						textMap.push(this.textHashMap.getvalue(this.textHashMap.keys()[j]))
 					}
-					
+
 				}
 				this.workEdit.sku = this.skuName;
 				this.workEdit.skuCode = this.skuCode;
@@ -360,13 +360,13 @@
 				}else{
 					this.workEdit.skuId = this.skuId;
 				}
-				
+
 				this.workEdit.editPicture = JSON.stringify(arrMap);
 				this.workEdit.editTxt = JSON.stringify(textMap);
 
                 $('.editSpan').hide();
-				Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'}); 
-               	
+				Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'});
+
                 Api.work.workEdit(this.workEdit).then((res)=>{
                 		if(res.data.code == 'success'){
                 			this.finishWork = !this.finishWork;
@@ -383,21 +383,21 @@
                 				for(var i=1; i<	this.taili.length; i++ ){
 			               		this.taili[i].imgUrl = ''+Api.HOST+'static/img/taili/taili_'+this.size+'/'+this.taili[i].year+this.taili[i].month+'.jpg'
 			               	}
-//			              	  
+//
 			              	 $('.max').append("<img class=\""+this.imgName+"\" src=\""+Api.HOST+"static/img/taili/taili_"+this.size+"/end.jpg\" />");
-                				
-                			}
-                			
 
-                		} 
+                			}
+
+
+                		}
                 },err=>{
                 			Indicator.close();
                 })
               	//console.log(this.workEdit)
 			},
 			addCar(){
-				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'}); 
-				
+				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'});
+
 				var jsons = {
                     operator:"add",
 //                  sessionId:localStorage.getItem("sessionId"),
@@ -418,12 +418,12 @@
 
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
-                    Indicator.close();	
+                    Indicator.close();
           			this.$router.push( { path : '/cart', query : { 'edtDbId' : this.extraCode, 'category' : this.getFromSession("category")}});
                    // location.href="#cart?edtDbId="+this.extraCode+"&category="+this.getFromSession("category");
-                			
+
                 },err=>{
-                	 	Indicator.close();		
+                	 	Indicator.close();
                     Toast('添加购物车出错');
                 })
 			},
@@ -447,11 +447,11 @@
 					  showCancelButton: true
 					}).then((res)=>{
 						if(res=="confirm"){this.vurRouterGo();}else{return}
-							
+
 					})
 	        	}
-	        			
-					
+
+
 			}
 		},
 		mounted(){
@@ -475,8 +475,8 @@
 			this.skuCode = sessionStorage.getItem('taili_skuCode');
 			this.skuId = this.$route.query.skuId;
 			$('#gc').hide();
-			
-			
+
+
 			//5秒钟隐藏
 			setTimeout(()=>{
 				this.isImgAlert = false;

@@ -34,7 +34,7 @@
 					<div class="listTable">
 						<p>详细地址</p>
 						<textarea id="address" v-model="datas.address" name="address" placeholder="请填写详细地址" rows="" cols=""></textarea>
-						
+
 					</div>
 				</li>
 				<li>
@@ -50,10 +50,10 @@
 </template>
 
 <script>
-	import  Api   from '../../API.js'
-	import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';	
-	
-	
+	import  Api   from '@/api.js'
+	import { Toast ,Actionsheet,Popup,Indicator} from 'mint-ui';
+
+
 	export default{
 		data(){
 			return{
@@ -77,13 +77,13 @@
 					this.datas.mainAddr = 'Y';
 					this.tapStyle = false;
 				}
-				
+
 			},
 			submitAddress(){
 				if(isEmojiCharacter(this.datas.name)){  //有表情
 					Toast('请不要输入表情^_^');
 					return false;
-				} 
+				}
 				if(this.datas.name==""){
 					Toast('收货人姓名不能为空!');
 					return;
@@ -100,7 +100,7 @@
 					Toast('详细地址不能为空!');
 					return;
 				}
-					
+
 				var reg = /^1[3|4|5|7|8]\d{9}$/;
 		　　　　if (!reg.test(this.datas.mobile)){
 					Toast('请输入正确的手机号码!');
@@ -120,7 +120,7 @@
 						dbId:this.$route.query.dbId,
 						mainAddr:this.datas.mainAddr,
 						userDbId:localStorage.getItem("userDbId")
-						
+
 					}
 					/*确认提交*/
 					Api.address.updateAddress(jsons).then(res=>{
@@ -129,9 +129,9 @@
 							location.href="#address?dzgl=grzx";
 						}else{
 							location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
-							
+
 						}
-						
+
 					},err=>{
 						Toast('数据请求错误');
 					})
@@ -151,7 +151,7 @@
 							if(this.$route.query.orderDbId){
 								location.href="#payOrder?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId")
 							}else{
-								
+
 								location.href="#address?openId="+this.$route.query.openId+"&orderDbId="+this.$route.query.orderDbId+"&userDbId="+localStorage.getItem("userDbId");
 							}
 						}
@@ -164,11 +164,11 @@
 	        linkGo(){
 				this.vurRouterGo();
 			}
-		
+
 		},
 		mounted(){
 			$('body').height($('body')[0].clientHeight)
-			
+
 			/*初始化地区数据*/
 			var area2 = new LArea();
 		    area2.init({
@@ -192,9 +192,9 @@
 		    		this.datas.province = res.data.province;
 		    		this.datas.address =  res.data.address;
 		    		this.datas.mainAddr = res.data.mainAddr;
-		    		
+
 		    	},err=>{
-		    		
+
 		    	})
 		    }
 		  // console.log(this.$route.query)

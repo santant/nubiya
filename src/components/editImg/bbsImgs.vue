@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Api from '../../API.js'
+import Api from '@/api.js'
 import { Swipe, SwipeItem,Indicator } from 'mint-ui';
 export default {
   data () {
@@ -73,7 +73,7 @@ export default {
       	 dataMsg:{
       	 	title:"小时光",
       	 	titleEdit:"小时光预览",
-      	 	tplCode:"baobaoshu_170-235_24", 
+      	 	tplCode:"baobaoshu_170-235_24",
       	 	defDbId:"7ad740df-0b81-418f-b4b5-c078ef580b47"
       	 }
 	   }
@@ -81,10 +81,10 @@ export default {
   },
 // props: ['dataImg'],
     methods:{
-    		
+
     },
     mounted(){
-    		
+
     }
 }
 </script>

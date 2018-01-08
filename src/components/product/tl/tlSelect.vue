@@ -4,11 +4,11 @@
 		  <router-link to="" href="javascript:window.history.go(-1);" v-tap slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		</mt-header>		
+		</mt-header>
 		<div class="bbsImg bbsImgTl">
 			<img v-model="imgUrl" :src="imgUrl"/>
 		</div>
-		
+
 
 		<dl class="slect_dl">
 			<dt>
@@ -22,7 +22,7 @@
 				<div v-model="popupVisible" v-tap='{methods:selects}' class="dd_slect date dd_slectWidth ">
 					<input type="hidden" name="wei_id" id="weiId" value="" style="opacity: 0;">   {{month}}月
 				</div>
-				
+
 			</dd>
 		</dl>
 		<dl class="slect_dl">
@@ -36,7 +36,7 @@
 				<div data-code= '145X195' v-tap='{methods:updateSize}' class="dd_slect size dd_slectWidth ">
 					145mmX195mm
 				</div>
-				
+
 			</dd>
 		</dl>
 		<dl class="slect_dl">
@@ -50,30 +50,30 @@
 				<div data-code= 'coffee' v-tap='{methods:updateType}' class="dd_slect type dd_slectWidth ">
 					咖啡色
 				</div>
-				
+
 			</dd>
 		</dl>
 		<!--<mt-popup style='width: 100%;' v-model="popupVisible" popup-transition="popup-up" position="bottom">
 			<mt-picker :slots="slots" @change="onValuesChange"></mt-picker>
 		</mt-popup>-->
-		
+
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
-		<div class="cart_btn">			
+		<div class="cart_btn">
 			<div class="price">
-				价格：<span><b>¥</b>{{price}}</span></div> 
+				价格：<span><b>¥</b>{{price}}</span></div>
 			<div  v-tap="{methods : nextPage}" class="crectOrder">
-				
+
 				下一步
 			</div>
 		</div>
-		
-	</div>	
+
+	</div>
 </template>
 
 <script>
-	import Api from '../../../API.js'	
+	import Api from '@/api.js'
 	import selectTl from '../../../../static/js/selectTl.js'
-	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';	
+	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';
 //	import {mapGetters, mapActions} from 'vuex'
 	export default{
 		data(){
@@ -84,10 +84,10 @@
 				skuName:'',
 				sizeCode:'',
 				colorCode:'',
-				bbs:{				
+				bbs:{
 					},
 				bbsSlsectDate:{ //给后端传递的数据
-					
+
 				},
 				price:"", //价格,
 				popupVisible:false,
@@ -104,8 +104,8 @@
 		   },
 		   selects(){
 			var _this = this
-			
-			 var sanguoSelect = new IosSelect(2, 
+
+			 var sanguoSelect = new IosSelect(2,
 	            [suData, weiData],
 	            {
 	                title: '选择日期',
@@ -122,7 +122,7 @@
 	                		}
 	                    //_this.years = selectOneObj.value
 	                   	//_this.month = selectTwoObj.value
-						
+
 	                }
 	        });
 		   },
@@ -157,8 +157,8 @@
 						"category": this.getFromSession("category"),
 						"parameter" : this.skuCode
 					};
-				 	//请求价格:			
-				Api.sku.querySku(paramsJson).then((res)=>{ 
+				 	//请求价格:
+				Api.sku.querySku(paramsJson).then((res)=>{
 					console.log(res)
 					 this.price = res.data.price;
 					 //this.bbsSlsectDate.price = res.data.price;
@@ -166,7 +166,7 @@
 					 sessionStorage.setItem("TlPrice",this.price)
 				})
 			},
-			 editorImage(jsons){ 
+			 editorImage(jsons){
                 this.$store.commit(
                     'showEditor',
                     {
@@ -182,18 +182,18 @@
 		},
 		mounted(){
 			this.addToSession();
-			
+
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
 			this.sizeCode = $('.size:nth-child(1)').attr('data-code');
-			this.colorCode = $('.type:nth-child(1)').attr('data-code'); 
+			this.colorCode = $('.type:nth-child(1)').attr('data-code');
 			this.initStyle();
-			
-			
+
+
 		}
 	}
 </script>
 
 <style>
-	
+
 </style>

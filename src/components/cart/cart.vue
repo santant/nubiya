@@ -14,7 +14,7 @@
 				</div>
 				<div class="div_comenter">
 					<div class="img_cart">
-						<img v-bind:src="trollyDetail.thumbnailImageUrl" alt="" />						
+						<img v-bind:src="trollyDetail.thumbnailImageUrl" alt="" />
 					</div>
 					<ol class="img_msg">
 						<!-- <li>{{trollyDetail.sku | splitSku}} {{ trollyDetail.worksName }}</li> -->
@@ -44,7 +44,7 @@
 						</li>
 					</ol>
 				</div>
-			</li>			
+			</li>
 		</ul>
 		<!--购物车底部-->
 		<i style="height: 2.9375rem;display: block;width: 100%;"></i>
@@ -54,9 +54,9 @@
 				<span>全选</span>
 			</div>
 			<div class="price">
-				
+
 				<div class="hj">合计:&nbsp;<span>¥&nbsp;{{allPic}}元</span></div>
-				
+
 			</div>
 			<div v-tap="{methods:gotoPayOrder}" class="crectOrder">
 				结算
@@ -64,12 +64,12 @@
 		</div>
 	</div>
 </template>
-	
+
 <script>
-	
-import  Api   from '../../API.js'
+
+import  Api   from '@/api.js'
 import  filter   from '../../filter.js'
-import { Toast ,Actionsheet,Popup,Indicator,MessageBox} from 'mint-ui';	
+import { Toast ,Actionsheet,Popup,Indicator,MessageBox} from 'mint-ui';
 export default {
 
 	  data () {
@@ -93,7 +93,7 @@ export default {
 				for (var i = 0; i < this.dataList.length; i++) {
 					if (this.dataList[i].isOK) {
 						checkData.push(this.dataList[i].isOK)
-					}					
+					}
 				}
 				if(checkData.length <= 0){
 					Toast('请选择要删除的产品');
@@ -110,7 +110,7 @@ export default {
 									arr+= this.dataList[i].dbId+',';
 									 this.dataList.splice(i,1);
 									 i--;
-								}					
+								}
 							}
 							arr.substr(0,arr.length-1);
 							Api.car.deleteCarCorde({dbId:arr,userDbId:localStorage.getItem('userDbId')}).then(res=>{
@@ -119,20 +119,20 @@ export default {
 									if(this.dataList.length < 1){
 										Toast('购物车为空，请去购买产品吧!');
 //										MessageBox.alert('购物车为空，请去首页添加购买的产品').then(action => {
-//					        				location.href=""		
+//					        				location.href=""
 //										});
 									}
 								}
 							},err=>{
 								Toast('请求错误');
 							})
-							
+
 						}
-									
+
 					})
 				}
-				
-				
+
+
 			},
 			/*添加数量*/
 			add(params){
@@ -152,7 +152,7 @@ export default {
 				for (var i = 0; i < this.dataList.length; i++) {
 					if (this.dataList[i].isOK) {
 						arr+=this.dataList[i].price * this.dataList[i].num;
-					}					
+					}
 				}
 				this.allPic = arr.toFixed(2);
 			},
@@ -160,12 +160,12 @@ export default {
 			updateCheck(params){
 				this.dataList[params.index].isOK = !this.dataList[params.index].isOK;
 				var arr = [];
-				
+
 				for (var i = 0; i < this.dataList.length; i++) {
 					if (this.dataList[i].isOK == true) {
 						arr.push(this.dataList[i]);
-						
-					}					
+
+					}
 				}
 				if(this.dataList.length == arr.length){
 					this.checkAllBtn = true;
@@ -173,7 +173,7 @@ export default {
 					this.checkAllBtn = false;
 				}
 				this.oPrice();
-	
+
 			},
 			/*全选*/
 			checkAll(){
@@ -189,7 +189,7 @@ export default {
 						el.isOK = false;
 					})
 				}
-				
+
 				this.oPrice();
 				this.$forceUpdate();
 			},
@@ -201,13 +201,13 @@ export default {
 				var skus = []
 				var skusArr = []
 				this.dataList.forEach(function(el,n){
-					if(el.isOK){ 
+					if(el.isOK){
 						var carJson = {
 							dbId : el.dbId,
 							price : el.price,
 							num : el.num
 						};
-						
+
 						carsArry.push(carJson);
 						cars.push(el.dbId);
 						skus.push(el.skuCode.split('.')[0])
@@ -217,14 +217,14 @@ export default {
 				if(cars.length < 1){
 					Toast('请选择结算产品');
 				}
-				
+
 				if(switchBool == true){
 					sessionStorage.setItem('cars', cars.join(','));
 					sessionStorage.setItem('skus',skus.join(','))
 					var jsons = {
 						userDbId:localStorage.getItem("userDbId"),
 						cars: JSON.stringify(carsArry)
-					} 
+					}
 					Api.car.submitCars(jsons).then(res=>{
 						if(res.data.code == 'success'){
 							//alert(res.data.orderDbId)
@@ -239,14 +239,14 @@ export default {
 
 				}else{
 					return
-				}				
+				}
 			},
 	        linkGo(){
 				this.vurRouterGo();
 			}
-		},	
-		mounted(){			
-			var jsons = { 
+		},
+		mounted(){
+			var jsons = {
 	  			userDbId:localStorage.getItem("userDbId"),
 	  			status:1,
 	  			pageNum:0,
@@ -260,21 +260,21 @@ export default {
 				this.dataList = res.data.results;
 				if(this.dataList.length < 1){
 //						MessageBox.alert('购物车为空，请去首页添加购买的产品').then(action => {
-//      				location.href=""		
+//      				location.href=""
 //					});
 Toast('购物车为空，请去购买产品吧!');
 				}
 				for (var i = 0; i < this.dataList.length; i++) {
 					this.dataList[i].isOK = false;
 				}
-				this.oPrice(); 
+				this.oPrice();
 			},err=>{
 				Toast('数据请求错误');
-			}) 
-			
+			})
+
 		}
 	}
-	
+
 </script>
 
 <style>

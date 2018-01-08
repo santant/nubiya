@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Api from '../../../API.js'
+import Api from '@/api.js'
 import { Swipe, SwipeItem, Indicator,MessageBox,Toast,Loadmore } from 'mint-ui';
 export default {
 	  data () {
@@ -50,7 +50,7 @@ export default {
 		 // this.page+=1;
 		// this.page+=1
 		 this.initCounpon()
-			
+
 		},
 
 		linkGo(){
@@ -120,7 +120,7 @@ export default {
 //			 		}
 			 		this.dataList = res.data.data.coupons
 			 		for (var i = 0; i < this.dataList.length; i++) {
-			 			
+
 			 			if(this.dataList[i].viewStatus == 'ok'){
 			 				this.dataList[i].classNames = 'wsy'
 			 			}else if(this.dataList[i].viewStatus == 'used'){

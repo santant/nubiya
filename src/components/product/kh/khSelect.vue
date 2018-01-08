@@ -6,14 +6,14 @@
 			</div>
 		</transition>
 		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
-		
+
 		<mt-header :title="tittle">
 		  <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
-		<div  class="reportNavEdt">		
+		<div  class="reportNavEdt">
 			！图片像素不足，会导致打印模糊，建议更换图片
 		</div>
 		<div class="bbsImg">
@@ -37,22 +37,22 @@
 					400mmX500mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='500X400' class="dd_slect size dd_slectWidth ">
-					
+
 					500mmX400mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='530X740' class="dd_slect size dd_slectWidth ">
-					
+
 					530mmX740mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='740X530' class="dd_slect size dd_slectWidth ">
-					
+
 					740mmX530mm
 				</div>
 				<div v-tap='{methods:updataSize}'data-code='500X500' class="dd_slect size dd_slectWidth ">
-					
+
 					500mmX500mm
 				</div>
-				
+
 			</dd>
 		</dl>
 		<dl class="slect_dl" v-bind:hidden="finishWork == true">
@@ -108,16 +108,16 @@
 		</div>
 		<edit-img @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
 	</div>
-	
+
 </template>
-	
+
 <script>
 	import selectKh from '../../../../static/js/selectKh.js'
 	import fileLoad from '../../component/publicComponent/fileLoad.vue'
-    import Api from '../../../API.js'
-	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';	
+    import Api from '@/api.js'
+	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';
 
-	
+
 	export default{
 		data(){
 			return{
@@ -141,12 +141,12 @@
 					category :"kuanghua",
 					client :'mobile',
 					channel:'',
-					userDbId :"", 
+					userDbId :"",
 					picPage : 1,
 					picNum : 1,
 					styleType : 1,
 					editCnfName :'',
-					templateCode : '',				
+					templateCode : '',
 					defDbId:''
 				},
 				 workEdit:{ //给后端保存或者编辑完成下一步传递的对象
@@ -182,7 +182,7 @@
 	           tittle:'艺术框画'
 			}
 		},
-		components:{  
+		components:{
 	       fileLoad
 	    },
 		methods:{
@@ -195,7 +195,7 @@
 					this.sheetV =!this.sheetV;
             			this.updataImgStr = 'change';
 				}
-            		
+
             },
 			imgshow(){ //显示上传
 				this.sheetV =!this.sheetV;
@@ -205,13 +205,13 @@
 				$('.reportNavEdt').hide();
 				this.tittle = '框画预览';
 				if($("#showImg").attr('src')){
-					Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'}); 
+					Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'});
 					this.workEdit.defDbId = this.defDbId;
 					if(this.editData.actions.thumbnailScale){
 						this.workEdit.editPicture[0].actions = this.editData.actions;
 					}
 					//this.workEdit.editPicture[0].actions = this.editData.actions ;
-					
+
 					this.workEdit.editPicture = '['+JSON.stringify(this.workEdit.editPicture[0])+']';
 					this.workEdit.sku = this.skuName;
 					this.workEdit.skuCode = this.skuCode;
@@ -231,30 +231,30 @@
 				   	this.finishWork = !this.finishWork;
 				   	Indicator.close();
 				   //	console.log(res.data)
-				   
+
 				   },err=>{
 				   		Indicator.close();
 				   })
 			  }else{
-			  	
+
 			  	Toast('请先上传图片');
 			  }
-			
+
 			},
 			getImg(val){ //获取组件图片
-				
+
 				if(val.dpi== 'false'){
 					$(".reportNavEdt").show();
 				}else{
-					$(".reportNavEdt").hide();	
+					$(".reportNavEdt").hide();
 				}
 				this.editData.actions = {};
 				$('.hx').css({'background':'none'});
 				this.oldImgData = val;
-				
+
 				$('#showImg').attr('src',val.previewThumbnailImageUrl);
 				$('.imgBox').show();
-				$('#updateBtn').show();			
+				$('#updateBtn').show();
 				$('#showImg').attr('attrImg',val.thumbnailUrl);//存原图
 				this.imgData = val;
 				var picObj = {
@@ -268,7 +268,7 @@
 				 	 	"minDpiHeight":val.minDpiHeight,
 				 	 	"minDpiWidth":val.minDpiWidth
 				 	 },
-                     "thumbnailImageUrl":val.thumbnailUrl, 
+                     "thumbnailImageUrl":val.thumbnailUrl,
                      "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
                      "cropit" : "false",
                      "editCnfName": val.editCnfName,
@@ -277,22 +277,22 @@
 				 this.workEdit.editPicture = [];
 				 this.workEdit.editPicture.push(picObj);
 				 this.workEdit.thumbnailImageUrl = val.thumbnailUrl;
-				 this.workEdit.tplCode = this.extraPostData.templateCode; 
+				 this.workEdit.tplCode = this.extraPostData.templateCode;
 
-				
+
 			},
 			updataType(params){//选择框型
 				this.type = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.typeCode = $(params.event.target).attr('data-code');
-				this.initStyle();				
+				this.initStyle();
 			},
 			updataSize(params){//选择尺寸
 				this.size = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.sizeCode =  $(params.event.target).attr('data-code');
-				this.initStyle();	
-				
+				this.initStyle();
+
 			},
 			initStyle(){//初始化数据
 				this.editData.actions = {};
@@ -311,11 +311,11 @@
 						"category": this.getFromSession("category"),
 						"parameter" : this.skuCode
 					};
-				 	//请求价格:			
-				Api.sku.querySku(paramsJson).then((res)=>{ 
+				 	//请求价格:
+				Api.sku.querySku(paramsJson).then((res)=>{
 					console.log(res)
 					 this.price = res.data.price;
-					 this.originalPrice = res.data.originalPrice; //原价		
+					 this.originalPrice = res.data.originalPrice; //原价
 					 this.skuId = res.data.skuId;
 					 //this.bbsSlsectDate.price = res.data.price;
 					 sessionStorage.setItem("hbPrice",this.price)
@@ -343,7 +343,7 @@
 							this.getImg(res.data);
 							Indicator.close();
 						}
-						
+
 					},err=>{
 	                		Indicator.close();
 	                    Toast('网络错误!');
@@ -356,19 +356,19 @@
 			editer(params){
 				$(".reportNavEdt").hide();
 			   if ($(params.event.target).hasClass("editSpan")) {
-					
+
 			   		this.editData.oSrc = this.imgData.thumbnailUrl;
 			   		this.editData.imgSize = {
-			   			oW: $('.imgBox').width(), 
+			   			oW: $('.imgBox').width(),
 			   			oH: $('.imgBox').height()
 			   		}
 			   		this.customParams = {
 			   			thumbnailScale:this.imgData.thumbnailScale,
 			   			dpi:this.imgData.dpi
-			   		}	
-			   		
+			   		}
+
 			   		this.editData.customParams = this.customParams;
-			   		
+
 			   		this.editData.actions.minDpiHeight = this.imgData.minDpiHeight;
 					this.editData.actions.minDpiWidth = this.imgData.minDpiWidth;
 					this.editData.actions.thumbnailScale = this.imgData.thumbnailScale;
@@ -381,7 +381,7 @@
 				if(data.postData.dpi== 'false'){
 					$(".reportNavEdt").show();
 				}else{
-					$(".reportNavEdt").hide();	
+					$(".reportNavEdt").hide();
 				}
 				$('#showImg').attr('src',data.imgData);
 				$('#showImg').css(
@@ -391,7 +391,7 @@
 
 			},
 			addCar(){
-				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'}); 
+				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'});
 				var jsons = {
                     operator:"add",
 //                  sessionId:localStorage.getItem("sessionId"),
@@ -409,21 +409,21 @@
                     sku : this.skuName,
                     skuCode : this.skuCode
                 }
-				
+
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
-                     Indicator.close();			
+                     Indicator.close();
                     // location.href="#cart?edtDbId="+this.extraCode+"&category="+this.getFromSession("category");
                     this.$router.push( { path : '/cart', query : { 'edtDbId' : this.extraCode, 'category' : this.getFromSession("category") }});
                 },err=>{
                  	Indicator.close();
                     Toast('添加购物车出错');
                 })
-				
+
 			},
 			//调起编辑图片组件
 			 editorImage(jsons){
-	           
+
 	            this.$store.commit(
 	                'showEditor',
 	                {
@@ -451,9 +451,9 @@
 					  showCancelButton: true
 					}).then((res)=>{
 						if(res=="confirm"){this.vurRouterGo();}else{return}
-						
+
 					})
-		        		
+
 		        	}
 			}
 
@@ -468,17 +468,17 @@
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.type = this.trimStr($('.type:nth-child(1)').text());
 			this.initStyle();
-			
+
 			//5秒钟隐藏
 			setTimeout(()=>{
 				this.isImgAlert = false;
 			},5000)
-		
-		
+
+
 		}
 	}
 </script>
-	
+
 </script>
 
 <style>

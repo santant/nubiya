@@ -26,7 +26,7 @@
 				<mt-button>下一步</mt-button>
 			</router-link>
 		</mt-header>
-		<!--<div  class="reportNavEdt">		
+		<!--<div  class="reportNavEdt">
 			！图片像素不足，会导致打印模糊，建议更换图片
 		</div>-->
 		<!-- 宝宝书list -->
@@ -211,7 +211,7 @@
 </template>
 <script>
 	import { Toast, Actionsheet, Popup, Indicator, MessageBox } from 'mint-ui';
-	import Api from '../../../API.js'
+	import Api from '@/api.js'
 	let regx = /[#$&\^*》><《@#￥/]/; //验证非法字符的正则
 	export default {
 		data() {
@@ -222,7 +222,7 @@
 				titleEdit: {
 					title: '',
 					titleEdit: ''
-				}, 
+				},
 				typeHtml: [], //宝宝书html模版
 				lomok: [], //lomok卡的html模版
 				sheetVisible: false, //隐藏弹出框的值
@@ -230,7 +230,7 @@
 				checkBS: true, //更换板式
 				selectBS: false, //板式选择的模版页面
 				textareaTexts: false, //文本弹出框编辑
-				previewPage: false, //预览页面切换      
+				previewPage: false, //预览页面切换
 				bbsCoustName: "", //宝宝书再次编辑索引
 				bbsBulr:'',//判断到底是谁上传的图片（上传和换图）
 				bbs: {
@@ -392,14 +392,14 @@
 					console.log(sessionStorage.getItem("channelCode"))
 					this.bbs.workEdit.channelCode = sessionStorage.getItem("channelCode")
 				}
-				//存入有图的首张图片 
+				//存入有图的首张图片
 				var thumbnailImageUrlStr = '';
 				var bgUrl = $(".fmPage").css("background-image");
 				if(bgUrl.indexOf('\"') > -1){
 					thumbnailImageUrlStr = bgUrl.split("\"")[1];
 				} else {
 				    thumbnailImageUrlStr = bgUrl.substring(4, bgUrl.length - 1);
-				}  
+				}
 				this.bbs.workEdit.thumbnailImageUrl = thumbnailImageUrlStr;
 				//保存函数
 				Api.work.workEdit(this.bbs.workEdit).then((res) => {
@@ -566,9 +566,9 @@
 				jsonDpi.picPage = this.bbs.page;
 				jsonDpi.styleType = this.bbs.styleType;
 				jsonDpi.userDbId = localStorage.getItem('userDbId');
-				
+
 				if (this.bbsBulr=="换图") {
-					
+
 					var constName = $(".checkImg").parents(".bs").parent("li").attr("attrpage")+'_' + $(".checkImg").next(".editImg").attr("nm");
 					if ($(".checkImg").parents(".bs").parent("li").attr("attrtitle")=="baobaoshu") {
 						var ImgHash = this.editData.ImgHashMap.getvalue(constName);
@@ -577,7 +577,7 @@
 						jsonDpi.picNum = ImgHash.num;
 						jsonDpi.picPage = ImgHash.page;
 						jsonDpi.styleType = ImgHash.editCnfIndex;
-						
+
 					}else{
 						var ImgHash = this.editData.lomHashMap.getvalue(constName);
 						console.log(ImgHash)
@@ -594,21 +594,21 @@
 				Api.work.checkDPI(jsonDpi).then(res => {
 
 					this.bbs.imgEdit.dpi=res.data.dpi;
-					
+
 					//res.data.thumbnailScale  缩放比
 					var constName = res.data.picPage + '_' + res.data.picNum; //几页加第几张图
-					
+
 					if(res.data.dpi == 'false'){
 							//$(".reportNavEdt").show();
 
 							$('.listBox ul li:nth-child('+(Number(res.data.picPage)+3)+') .bs .bstp .imgBox .bbsClass:nth-child('+(Number(res.data.picNum))+') .myImgBox >a').show();
-							
+
 						}else{
-							//$(".reportNavEdt").hide();	
+							//$(".reportNavEdt").hide();
 							$('.listBox ul li:nth-child('+(Number(res.data.picPage)+3)+') .bs .bstp .imgBox .bbsClass:nth-child('+(Number(res.data.picNum))+') .myImgBox >a').hide();
-							
+
 						}
-					
+
 					var picObj = {
 						"constName": constName,
 						"picDbId": res.data.pictureDbId,
@@ -623,20 +623,20 @@
 						"cropit": "false",
 						"editCnfName": res.data.editCnfName
 					};
-					
-					
+
+
 					if(res.data.editCnfName == "baobaoshu_lomo") { //判断是lomo卡的东西
 						this.editData.lomHashMap.putvalue(constName, picObj); //存入lomo卡的对象
 						Indicator.close(); //关闭弹出框
 						this.sheetVisible = false;
 						this.popupVisible = false;
-						
+
 						if (this.bbsBulr=="上传") {
 							$(".OnlyOne").prev(".myImgBox").show().find("img").attr("src", res.data.previewThumbnailImageUrl+'?t='+new Date().getTime()).attr("attrImg", res.data.thumbnailUrl);
 							$(".OnlyOne").remove();
 						}
 						if (this.bbsBulr=="换图") {
-							$(".checkImg").attr("src", res.data.previewThumbnailImageUrl+'?t='+new Date().getTime()).attr("attrImg", res.data.thumbnailUrl);		
+							$(".checkImg").attr("src", res.data.previewThumbnailImageUrl+'?t='+new Date().getTime()).attr("attrImg", res.data.thumbnailUrl);
 						}
 						return;
 					}
@@ -645,7 +645,7 @@
 							$(".OnlyOne").remove();
 					}
 					if (this.bbsBulr=="换图") {
-							$(".checkImg").attr("src", res.data.previewThumbnailImageUrl+'?t='+new Date().getTime()).attr("attrImg", res.data.thumbnailUrl);		
+							$(".checkImg").attr("src", res.data.previewThumbnailImageUrl+'?t='+new Date().getTime()).attr("attrImg", res.data.thumbnailUrl);
 					}
 					//存入图片ImgHashMap
 					console.log(picObj)
@@ -659,7 +659,7 @@
 					Toast('网络错误!');
 				})
 			},
-			editWork() { //保存作品 
+			editWork() { //保存作品
 				this.assembleData();
 			},
 			goAnchor(selector) { //跳转锚点的函数
@@ -702,7 +702,7 @@
 				var oThis = this;
 				this.selectBS = false;
 				var oIndexs = 'bbs' + (this.bbs.index2 + 1)
-				//动态修改模版的板式 
+				//动态修改模版的板式
 				if(this.bbs.oTppe_type != this.bbs.index2 + 1) {
 					this.typeHtml[this.bbs.index1] = this.dataImg.imgArrTypeData[oIndexs];
 					//修改模版板式之后清空他map里面的数据
@@ -748,7 +748,7 @@
 				$("#bbsImg .img_div ul li").removeClass("liActive")
 				$("#bbsImg .img_div ul li").eq(params.index).addClass("liActive")
 			},
-			ActionsheetIn(params) { //ActionsheetIn 弹出框显示，选择图片上传 
+			ActionsheetIn(params) { //ActionsheetIn 弹出框显示，选择图片上传
 				//换图的功能
 				if($(params.event.target).attr("attrimg") && this.nextBool == false){
 					this.bbsBulr = "换图";
@@ -849,7 +849,7 @@
 				}
 			},
 			confirmText() { //确认按钮弹出框、
-				
+
 				if(regx.test(this.bbs.textTextarea)) {
 					Toast("文本框有非法字符,请修正!");
 					return;
@@ -860,7 +860,7 @@
 				}
 				this.textareaTexts = false;
 				$(".textErea").text(this.bbs.textTextarea)
-				
+
 				//组装数据模版
 				var textMapVal = {
 					"content": this.bbs.textTextarea,
@@ -904,7 +904,7 @@
 					//$(".reportNavEdt").show();
 					$('.listBox ul li:nth-child('+(Number(liPicPage)+3)+') .bs .bstp .imgBox .bbsClass:nth-child('+(Number(liNumber))+') .myImgBox >a').show();
 				}else{
-					//$(".reportNavEdt").hide();	
+					//$(".reportNavEdt").hide();
 					$('.listBox ul li:nth-child('+(Number(liPicPage)+3)+') .bs .bstp .imgBox .bbsClass:nth-child('+(Number(liNumber))+') .myImgBox >a').hide();
 				}
 				if(!this.bbs.imgEdit.editCnfName) { //宝宝书的对象
@@ -926,7 +926,7 @@
 			//			console.log(fns)
 			//		})
 
-			//首先拿到从父级传递的必要数据回填到组件中	
+			//首先拿到从父级传递的必要数据回填到组件中
 			this.titleEdit.title = this.dataImg.dataMsg.title
 			this.titleEdit.titleEdit = this.dataImg.dataMsg.titleEdit
 			this.bbs.workEdit.defDbId = this.dataImg.dataMsg.defDbId
@@ -1061,7 +1061,7 @@
 							}
 						}
 						//关闭加载弹窗
-						Indicator.close();						
+						Indicator.close();
 					}, 1000)
 				})
 			}
@@ -1122,7 +1122,7 @@
 						"styleType": oThis.bbs.styleType,
 						"editCnfName": oThis.bbs.editCnfName
 					}
-					
+
 					if (oThis.bbsBulr=="换图") {
 						console.log("换图")
 						var constName = $(".checkImg").parents(".bs").parent("li").attr("attrpage")+'_' + $(".checkImg").next(".editImg").attr("nm");
@@ -1133,7 +1133,7 @@
 							extraPostData.picNum = ImgHash.num;
 							extraPostData.picPage = ImgHash.page;
 							extraPostData.styleType = ImgHash.editCnfIndex;
-							
+
 						}else{
 							var ImgHash = oThis.editData.lomHashMap.getvalue(constName);
 							console.log(ImgHash)
@@ -1141,7 +1141,7 @@
 							extraPostData.picNum = ImgHash.num;
 							extraPostData.picPage = ImgHash.page;
 							extraPostData.styleType = ImgHash.editCnfIndex;
-						}					
+						}
 					}
 					r.opts.query = extraPostData;
 					//打开进度框
@@ -1169,21 +1169,21 @@
 					var responseText = $.parseJSON(message);
 					console.log(responseText)
 					oThis.bbs.imgEdit.dpi=responseText.dpi;
-					
+
 					if(responseText.dpi == 'false'){
 							//$(".reportNavEdt").show();
 							//('.listBox ul li .bs .bstp .imgBox .bbsClass .myImgBox >a').show();
 							$('.listBox ul li:nth-child('+(Number(responseText.picPage)+3)+') .bs .bstp .imgBox .bbsClass:nth-child('+(Number(responseText.picNum))+') .myImgBox >a').hide();
-							
+
 						}else{
 							//$(".reportNavEdt").hide();
 							//$('.listBox ul li .bs .bstp .imgBox .bbsClass .myImgBox >a').hide();
 							$('.listBox ul li:nth-child('+(Number(responseText.picPage)+3)+') .bs .bstp .imgBox .bbsClass:nth-child('+(Number(responseText.picNum))+') .myImgBox >a').hide();
-							
+
 						}
 					if(responseText.pictureDbId) {
 						if (oThis.bbsBulr=="上传") {
-							$(".OnlyOne").prev(".myImgBox").show().find("img").attr("src", responseText.previewThumbnailImageUrl).attr("attrImg", responseText.thumbnailUrl);						
+							$(".OnlyOne").prev(".myImgBox").show().find("img").attr("src", responseText.previewThumbnailImageUrl).attr("attrImg", responseText.thumbnailUrl);
 							$(".OnlyOne").remove();
 						}
 						if (oThis.bbsBulr=="换图") {
@@ -1191,7 +1191,7 @@
 							$(".checkImg").attr("src", responseText.previewThumbnailImageUrl+'?t='+new Date().getTime()).attr("attrImg", responseText.thumbnailUrl);
 						}
 						console.log(oThis.bbsBulr)
-						
+
 						//存入最大宽高和里面的dpi做对比
 						oThis.bbs.imgEdit.minDpiHeight = responseText.minDpiHeight;
 						oThis.bbs.imgEdit.minDpiWidth = responseText.minDpiWidth;
@@ -1235,7 +1235,7 @@
 					Indicator.close();
 				});
 			}
-			
+
 			//5秒钟隐藏
 			setTimeout(()=>{
 				this.isImgAlert = false;

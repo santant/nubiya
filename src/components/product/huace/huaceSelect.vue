@@ -4,12 +4,12 @@
 		  <router-link to="" href="javascript:window.history.go(-1);" v-tap slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		</mt-header>		
+		</mt-header>
 		<div class="bbsImg">
-			<img src="http://m.builder.artup.com/static/img/album.jpg"/>	
+			<img src="http://m.builder.artup.com/static/img/album.jpg"/>
 			<!--
 				http://builder.artup.com/front/
-				白色 
+				白色
 				imgs/album/hui.png    imgs/album/hui3.png
 				绿色
 				imgs/album/lv.png    imgs/album/lv3.png
@@ -32,33 +32,33 @@
 			</dl>
 
 		<i style="height: 2.9375rem; display: block; width: 100%;"></i>
-		<div class="cart_btn">			
+		<div class="cart_btn">
 			<div class="price">
-				价格：<span><b>¥</b>{{price}}</span></div> 
+				价格：<span><b>¥</b>{{price}}</span></div>
 				<!--<router-link to='/huaceImgs'></router-link>-->
 				<a class="crectOrder" href="#huaceImgs">下一步</a>
 		  </div>
-	</div>	
+	</div>
 </template>
 
 <script>
-	import Api from '../../../API.js'	
-	import { Toast,Indicator,MessageBox} from 'mint-ui';	
+	import Api from '@/api.js'
+	import { Toast,Indicator,MessageBox} from 'mint-ui';
 //	import {mapGetters, mapActions} from 'vuex'
 	export default{
 		data(){
 			return{
-				bbs:{				
+				bbs:{
 				},
 				bbsSlsectDate:{ //给后端传递的数据
-					
+
 				},
 				price:0 ,//价格
 				skuId:''
 			}
 		},
 		methods:{
-			check(params){ //切换选项		
+			check(params){ //切换选项
 				for (var i = 0; i < this.bbs.attributes.length; i++) {
 					for (var j = 0; j < this.bbs.attributes[i].attributeValues.length; j++) {
 						this.bbs.attributes[i].attributeValues[j].colorF = false;
@@ -84,8 +84,8 @@
 			getPrice(dom){//获得页面的价格
 					this.bbsSlsectDate={};
 					//获得页面的颜色
-//				 	this.bbsSlsectDate.colorName = dom.eq(1).text().trim()			 	
-				 	this.bbsSlsectDate.colorName = dom.eq(0).text().trim()			 	
+//				 	this.bbsSlsectDate.colorName = dom.eq(1).text().trim()
+				 	this.bbsSlsectDate.colorName = dom.eq(0).text().trim()
 					var dataCode = '';//请求价格需要的参数
 					var dataCode2 = '';//后端需要的参数
 					dom.each(function(index,el){
@@ -95,7 +95,7 @@
 					//console.log(dataCode)
 					//console.log(dataCode2)
 					//组装后端需要的数据暂存浏览器
-					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2; 
+					this.bbsSlsectDate.name = this.bbs.name+'.'+dataCode2;
 				 	this.bbsSlsectDate.skuCode = this.getFromSession("category")+'.'+dataCode;
 					this.bbsSlsectDate.category = this.getFromSession("category"); //类型字段
 
@@ -104,8 +104,8 @@
 						"parameter" : dataCode,
 						"client" : "mobile"
 					};
-				 	//请求价格:			
-					Api.sku.querySku(paramsJson).then((res)=>{ 
+				 	//请求价格:
+					Api.sku.querySku(paramsJson).then((res)=>{
 						 this.price = res.data.price;
 						 this.bbsSlsectDate.price = res.data.price;
 						 this.bbsSlsectDate.skuId = res.data.skuId;
@@ -116,8 +116,8 @@
 		mounted(){
 			var This = this;
 			//宝宝书选择作品
-			Indicator.open({text: '页面加载中...',spinnerType: 'fading-circle'}); 
-			var paraAttributeJson = {  
+			Indicator.open({text: '页面加载中...',spinnerType: 'fading-circle'});
+			var paraAttributeJson = {
 				category: this.getFromSession("category"), //类型
 				client:'mobile'
 			};
@@ -134,18 +134,18 @@
 //				 res.data.attributes = arr
 				 this.bbs= res.data;
 				 //给数据里面添加1个判断class的对象
-				 this.checkColor(this.bbs.attributes,0)				 
-				 Indicator.close();				 
+				 this.checkColor(this.bbs.attributes,0)
+				 Indicator.close();
 				 //默认的价格
 				 setTimeout(function(){
-				 	This.getPrice($("#bbs-select .slect_dl > dd .dd_active"))				    
-				 },100)	 
-			});	
+				 	This.getPrice($("#bbs-select .slect_dl > dd .dd_active"))
+				 },100)
+			});
 			//开始默认的时候，去拿我的作品列表判断是否有未完成的作品
 			this.bbsSlsectDate.category = this.getFromSession("category"); //类型字段
-			var paraJson = { 
+			var paraJson = {
 				userDbId:localStorage.getItem('userDbId'),
-				status:1, //未完成1，已经完成2 
+				status:1, //未完成1，已经完成2
 				sortField:"createdDt",
 				pageSize:15,//每页多少条
 				pageNum:0, //第几页
@@ -165,12 +165,12 @@
 						if(res=="confirm"){//有未完成的作品
 							//跳转到未完成的页面去
 							this.$router.push({path:"/workList",query:{"":''}})
-						}					
+						}
 					})
-				};				
+				};
 			})
 			//监听浏览器返回
-			window.addEventListener("popstate", function(e) {  
+			window.addEventListener("popstate", function(e) {
 		       MessageBox.close();
 		    }, false);
 		}

@@ -17,9 +17,9 @@
 </template>
 
 <script>
-	import  Api   from '../../API.js'
-	import {Indicator} from 'mint-ui';	
-	
+	import  Api   from '@/api.js'
+	import {Indicator} from 'mint-ui';
+
 	export default{
 		data(){
 			return{
@@ -31,8 +31,8 @@
 				this.vurRouterGo();
 			}
 		},
-		created(){			
-     	
+		created(){
+
 		},
 		mounted(){
 				Indicator.open({text: '素材加载中...',spinnerType: 'fading-circle'});
@@ -46,10 +46,10 @@
                         sort:"uploadDt",
                         order:"desc",
                         category: ""
-                    } 
+                    }
                     Api.Material.MaterialData(paramJson).then((res)=>{
                     	console.log(res)
-		            this.Material = res.data.results;		           
+		            this.Material = res.data.results;
 		            setTimeout(function(){
 			        	 //计算素材库图片的位置
 		                $(".img_div ul li").each(function(i,el){
@@ -60,7 +60,7 @@
 			        },300)
 		            //关闭弹窗
 		           Indicator.close();
-		        }) 
+		        })
 		}
 	}
 </script>

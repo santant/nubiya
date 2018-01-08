@@ -4,7 +4,7 @@
 		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		</mt-header>	
+		</mt-header>
     <div class="bottom">
     <div class="description">
         <div class="content">
@@ -19,7 +19,7 @@
         <div class="addCon_topText">
             定制画芯，多种框型可选，满足你的个性需求，打造家居及办公空间的完美视觉体验。
         </div>
-        <div class="addCon_topPic"> 
+        <div class="addCon_topPic">
              <img  :src="imgHost+'static/img/framed_pictures/1.jpg'" class="addRound" />
         </div>
         <div class="addCon_midText">
@@ -28,13 +28,13 @@
             <div class="addCon_midText_bott">
                 引进日本制框工艺，全手工精裱，确保细节完美无瑕。              </div>
         </div>
-        <div class="addCon_topPic"> 
+        <div class="addCon_topPic">
              <img  :src="imgHost+'static/img/framed_pictures/che3.jpg'" class="addRound" />
-            
+
         </div>
-        <div class="addCon_topPic"> 
+        <div class="addCon_topPic">
              <img  :src="imgHost+'static/img/framed_pictures/2.jpg'" class="addRound" />
-            
+
         </div>
         <div class="addCon_topPicText">
         </div>
@@ -44,9 +44,9 @@
             <div class="addCon_midText_bott">
                 画框多种材质，多种尺寸、多种颜色可选， 自由搭配，演绎不同家居及办公风格。              </div>
         </div>
-        <div class="addCon_topPic"> 
+        <div class="addCon_topPic">
              <img  :src="imgHost+'static/img/framed_pictures/3.jpg'" class="addRound" />
-            
+
         </div>
         <div class="addCon_midText">
             <div class="addCon_midText_up">包装</div>
@@ -55,26 +55,26 @@
                 环保背板材料，安全无异味；瓦楞纸礼盒包装，精致大方。
             </div>
         </div>
-        <div class="addCon_topPic"> 
+        <div class="addCon_topPic">
              <img  :src="imgHost+'static/img/framed_pictures/4.jpg'" class="addRound" />
-            
+
         </div>
-        <div class="addCon_topPic"> 
+        <div class="addCon_topPic">
              <img  :src="imgHost+'static/img/framed_pictures/5.jpg'" class="addRound" />
-            
+
         </div>
-    </div>  
+    </div>
 </div>
  <div class="btn_box">
     	<router-link to="khSelect?category=kuanghua">
         <div class="made_btn" id="kuanghua" style="color: #333;">开始定制</div>
-     </router-link>   
+     </router-link>
     </div>
 	</div>
 </template>
 
 <script>
-	import Api from '../../../API.js'
+	import Api from '@/api.js'
 	import { Swipe, SwipeItem } from 'mint-ui';
 	export default {
 		  data () {
@@ -89,7 +89,7 @@
 	    },
 	    mounted(){
 	    	    //更改session
-	    		this.addToSession();    		
+	    		this.addToSession();
 	    		if(this.$route.query.channelCode){
 	    			var jsons = {
 	    				"channelCode": this.$route.query.channelCode
@@ -98,14 +98,14 @@
 	    			Api.work.editNumber(jsons).then(res=>{
                   console.log(res)
                 },err=>{
-                 	
+
                 })
-	    			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))			
+	    			sessionStorage.setItem('urlQuery',JSON.stringify(this.$route.query))
 				if (this.$route.query.userDbId) {
 					localStorage.setItem('userDbId',this.$route.query.userDbId)
 				}
 	    		}
-	    		
+
 	}
 }
 </script>

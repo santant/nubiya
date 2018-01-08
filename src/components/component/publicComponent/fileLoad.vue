@@ -52,7 +52,7 @@
 
 <script>
 	import { Toast, Actionsheet, Popup, Indicator } from 'mint-ui';
-	import Api from '../../../API.js'
+	import Api from '@/api.js'
 	export default {
 		name: "file-load",
 		data() {
@@ -79,7 +79,7 @@
 					this.extraPostData = this.extraPostDatas
 			},
 			slectUpload() {
-				
+
 				Indicator.open({
 					text: '素材上传中...',
 					spinnerType: 'fading-circle'
@@ -114,7 +114,7 @@
 					if(this.Material) {
 						this.Material[this.MaterialImgIndex].activeLi = true;
 					}
-					
+
 					setTimeout(function() {
 						//计算素材库图片的位置
 						$(".img_div ul li").each(function(i, el) {
@@ -229,12 +229,12 @@
 				r.on('progress', function(e) {
 					var progress = Number(r.progress());
 					var progressWidth = progress.toFixed(2) * 100;
-					//进度条显示     
+					//进度条显示
 					//console.log(parseInt(progressWidth))
-					if(progressWidth > 0) {						
+					if(progressWidth > 0) {
 						$("#loading_file .loading_div >span").text("上传中..."+parseInt(progressWidth)+'%');
 					}
-					
+
 				});
 				r.on('error', function() {
 					Indicator.close(); //关闭弹出框
@@ -262,5 +262,5 @@
 </script>
 
 <style>
-	
+
 </style>

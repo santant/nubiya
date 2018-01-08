@@ -24,7 +24,7 @@
 			<!--<div class="cardListView">
 				<div class="viewContent">
 				   <div class="leftBox">
-				   	  <p>购买商品用（订单号：201708311740173556）</p>	
+				   	  <p>购买商品用（订单号：201708311740173556）</p>
 				   	  <p>2017-09-15  14:32:04</p>
 				   </div>
 				   <p>-￥200</p>
@@ -33,7 +33,7 @@
 			<div class="cardListView" v-for="(item,index) in dataList">
 				<div class="viewContent">
 				   <div class="leftBox">
-				   	  <p>{{item.remarks}}</p>	
+				   	  <p>{{item.remarks}}</p>
 				   	  <p>{{item.createDate}}</p>
 				   </div>
 				   <p v-if="item.tradeAmount > 0">+￥{{item.tradeAmount | absFilter}}</p>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Api from '../../API.js'
+import Api from '@/api.js'
 import { Swipe, SwipeItem, Indicator,MessageBox,Toast,Loadmore } from 'mint-ui';
 export default {
 	  data () {
@@ -85,12 +85,12 @@ export default {
 						Indicator.close()
 					}
 				},err=>{
-					
+
 				})
 			}else{
 				Toast('请输入正确的兑换码')
 			}
-			
+
 		},
 		initGiftCard(){
 			var jsons ={
@@ -102,7 +102,7 @@ export default {
 				this.dataList = res.data.data.giftcardLogs
 				Indicator.close()
 			},err=>{
-				
+
 			})
 		}
     },
@@ -115,7 +115,7 @@ export default {
 		},err=>{
 			Toast('网络异常')
 		})
-		
+
 	}
 }
 </script>

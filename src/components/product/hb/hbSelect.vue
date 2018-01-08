@@ -5,23 +5,23 @@
 				<span>🖱️点击上传后的图片可替换图片 ！</span>
 			</div>
 		</transition>
-		
+
 		<file-load @getImgData="getImg" :extraPostDatas="extraPostData" :sheetVisible="sheetV" ></file-load>
-		
+
 		<mt-header :title="tittle">
 		  <router-link to="" v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
-		<div  class="reportNavEdt">		
+		<div  class="reportNavEdt">
 			！图片像素不足，会导致打印模糊，建议更换图片
 		</div>
 		<div class="bbsImg">
 			<div class="contioner" style="background-color: #fff;" :style="{width:CaseData.currentWidth,height:CaseData.currentHeight,backgroundImage:CaseData.urls}">
 				<div class="hx">
 					<img @click="imgshow" id="updateBtn" :src="imgHost+'static/img/p_sucai_02.jpg'" alt="" />
-					 
+
 					<div class="imgBox" >
 						<span class="editSpan"  v-bind:hidden="finishWork == true" v-tap='{methods:editer}'>编辑</span>
 						<img id="showImg" src=""  v-tap='{methods:updataImg}' attrImg='' alt="" />
@@ -38,22 +38,22 @@
 					400mmX500mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='500X400' class="dd_slect size dd_slectWidth ">
-					
+
 					500mmX400mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='500X700' class="dd_slect size dd_slectWidth ">
-					
+
 					500mmX700mm
 				</div>
 				<div v-tap='{methods:updataSize}'data-code='700X500' class="dd_slect size dd_slectWidth ">
-					
+
 					700mmX500mm
 				</div>
 				<div v-tap='{methods:updataSize}' data-code='500X500' class="dd_slect size dd_slectWidth ">
-					
+
 					500mmX500mm
 				</div>
-				
+
 			</dd>
 		</dl>
 
@@ -61,26 +61,26 @@
 		<div class="addCarBtn" v-bind:hidden="finishWork == false" v-tap="{methods:addCar}">加入购物车</div>
 		<div class="cart_btn">
 			<div style="width: 12rem;" class="price">
-				价格<span><b>¥</b>{{price}}</span> 
+				价格<span><b>¥</b>{{price}}</span>
 				<!--<span style="color: #C0CCDA;font-size: 0.6rem;text-decoration:line-through;">
 					<b v-if="originalPrice">原价:</b>{{originalPrice}}</span>-->
-			</div> 
+			</div>
 			<div v-bind:hidden="finishWork == true" v-tap="{methods:nextGoCar}" class="crectOrder">
 				下一步
 			</div>
 		</div>
 		<edit-img @selectPreview="selectPreview" @editFinish="editFinish"></edit-img>
 	</div>
-	
+
 </template>
-	
+
 <script>
 	import selectKh from '../../../../static/js/selectHb.js'
 	import fileLoad from '../../component/publicComponent/fileLoad.vue'
-    import Api from '../../../API.js'
-	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';	
-    
-	
+    import Api from '@/api.js'
+	import { Toast,Indicator,MessageBox,Picker,Popup } from 'mint-ui';
+
+
 	export default{
 		data(){
 			return{
@@ -104,12 +104,12 @@
 					category :"haibao",
 					client :'mobile',
 					channel:'',
-					userDbId :"", 
+					userDbId :"",
 					picPage : 1,
 					picNum : 1,
 					styleType : 1,
 					editCnfName :'',
-					templateCode : '',				
+					templateCode : '',
 					defDbId:''
 				},
 				 workEdit:{ //给后端保存或者编辑完成下一步传递的对象
@@ -145,7 +145,7 @@
 	           tittle:'艺术海报'
 			}
 		},
-		components:{  
+		components:{
 	       fileLoad
 	    },
 		methods:{
@@ -154,20 +154,20 @@
                 //this.imgshow();
             },
 			imgshow(){ //显示上传
-				
+
 				this.sheetV =!this.sheetV;
 			},
 			updataImg(){
 				if(this.finishWork == false){
 	    				this.sheetV =!this.sheetV;
-					
+
 				}
             },
 			nextGoCar(){
 				$('.reportNavEdt').hide();
-				
+
 				if($("#showImg").attr('src')){
-					Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'}); 
+					Indicator.open({text: '作品保存中...',spinnerType: 'fading-circle'});
 					this.workEdit.defDbId = this.defDbId;
 					if(this.editData.actions.thumbnailScale){
 						this.workEdit.editPicture[0].actions = this.editData.actions;
@@ -181,32 +181,32 @@
 					}else{
 						this.workEdit.skuId = this.skuId;
 					}
-					
+
 					this.workEdit.category = this.getFromSession('category');
-					 
+
 				   	Api.work.workEdit(this.workEdit).then((res)=>{
 				   		this.extraCode = res.data.extraCode;
 				   		this.workEdit.thumbnailImageUrl = res.data.commandTitle;
 						this.finishWork = !this.finishWork;
 				   		Indicator.close();
 				   		this.tittle = '海报预览';
-				   		
+
 				   	},err=>{
 				   		Indicator.close();
 				   	})
 			   }else{
 			   	 Toast('请先上传图片');
 			   }
-			
+
 			},
-			getImg(val){ //获取组件图片 
+			getImg(val){ //获取组件图片
 				if(val.dpi== 'false'){
 					$(".reportNavEdt").show();
 				}else{
-					$(".reportNavEdt").hide();	
+					$(".reportNavEdt").hide();
 				}
 				this.editData.actions = {};
-				
+
 				this.oldImgData = val;
 				if(val.pictureDbId){
 					$('.imgBox').show();
@@ -216,7 +216,7 @@
 						'padding': '0.4rem',
 						'background-color':'#fff'
 					})
-					
+
 					$('#showImg').attr('attrImg',$('#showImg').attr('src'));//存原图
 					this.imgData = val;
 					var picObj = {
@@ -230,7 +230,7 @@
 					 	 	"minDpiHeight":val.minDpiHeight,
 					 	 	"minDpiWidth":val.minDpiWidth
 					 	 },
-	                     "thumbnailImageUrl":val.thumbnailUrl, 
+	                     "thumbnailImageUrl":val.thumbnailUrl,
 	                     "previewThumbnailImageUrl" :val.previewThumbnailImageUrl,
 	                     "cropit" : "false",
 	                     "editCnfName" : val.editCnfName,
@@ -243,18 +243,18 @@
 					 this.workEdit.tplCode = this.templateCode;
 				} else {
 					//Toast('上传图片失败，请重试');
-				} 
+				}
 			},
 			updataType(params){//选择框型
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.typeCode = $(params.event.target).attr('data-code');
-				this.initStyle();				
+				this.initStyle();
 			},
 			updataSize(params){//选择尺寸
 				this.size = $(params.event.target).text();
 				$(params.event.target).addClass('dd_active').siblings().removeClass('dd_active');
 				this.sizeCode =  $(params.event.target).attr('data-code');
-				this.initStyle();		
+				this.initStyle();
 			},
 			initStyle(){//初始化数据
 				Indicator.open({
@@ -272,12 +272,12 @@
 						"category": this.getFromSession("category"),
 						"parameter" : this.skuCode
 					};
-				 	//请求价格:			
-				Api.sku.querySku(paramsJson).then((res)=>{ 
+				 	//请求价格:
+				Api.sku.querySku(paramsJson).then((res)=>{
 					console.log(res)
 					if(res.data.price){
 						this.price = res.data.price;
-						 this.originalPrice = res.data.originalPrice; //原价					 
+						 this.originalPrice = res.data.originalPrice; //原价
 						 this.skuId = res.data.skuId;
 						 //this.bbsSlsectDate.price = res.data.price;
 						 sessionStorage.setItem("hbPrice",this.price)
@@ -307,7 +307,7 @@
 							this.getImg(res.data);
 							Indicator.close();
 						}
-						
+
 					},err=>{
 	                		Indicator.close();
 	                    Toast('网络错误!');
@@ -320,10 +320,10 @@
 			editer(params){
 				$(".reportNavEdt").hide();
 			   if ($(params.event.target).hasClass("editSpan")) {
-			
+
 			   		this.editData.oSrc = this.imgData.thumbnailUrl;
 			   		this.editData.imgSize = {
-			   			oW: $('.imgBox').width(), 
+			   			oW: $('.imgBox').width(),
 			   			oH: $('.imgBox').height()
 			   		};
 			   		this.customParams = {
@@ -335,20 +335,20 @@
 					this.editData.actions.minDpiWidth = this.imgData.minDpiWidth;
 					this.editData.actions.thumbnailScale = this.imgData.thumbnailScale;
 			   		this.editData.customParams = this.customParams;
-			   		this.editorImage(this.editData); 
+			   		this.editorImage(this.editData);
 			   }
 			},
 			editFinish(data){
 				if(data.postData.dpi== 'false'){
 					$(".reportNavEdt").show();
 				}else{
-					$(".reportNavEdt").hide();	
+					$(".reportNavEdt").hide();
 				}
 				$('#showImg').attr('src',data.imgData);
 				$('#showImg').css(
 					{width:"100%",height:"100%",top:0,left:0}
 				);
-				this.editData.actions = data.postData; 
+				this.editData.actions = data.postData;
 			},
 			addCar(){
 				var jsons = {
@@ -368,7 +368,7 @@
                     sku : this.skuName,
                     skuCode : this.skuCode
                 }
-				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'}); 
+				Indicator.open({text: '添加购物车...',spinnerType: 'fading-circle'});
                 Api.car.addCar(jsons).then(res=>{
                     //var category = "baobaoshu"
                     	Indicator.close();
@@ -378,7 +378,7 @@
                	 	Indicator.close();
                     Toast('添加购物车出错');
                 })
-				
+
 			},
 			//调起编辑图片组件
 			 editorImage(jsons){
@@ -399,9 +399,9 @@
 					if(this.finishWork == true){
 						this.tittle = '艺术海报'
 			        		this.finishWork = !this.finishWork;
-			        		
+
 			        		if((typeof this.workEdit.editPicture) == 'string'){
-			        			
+
 			        			this.workEdit.editPicture = JSON.parse(this.workEdit.editPicture);
 			        		}
 			        	}else{
@@ -411,7 +411,7 @@
 						  showCancelButton: true
 						}).then((res)=>{
 							if(res=="confirm"){this.vurRouterGo();}else{return}
-								
+
 						})
 			        	}
 			}
@@ -425,7 +425,7 @@
 			/*默认画框样式*/
 			this.size = this.trimStr($('.size:nth-child(1)').text());
 			this.initStyle();
-			
+
 			//5秒钟隐藏
 			setTimeout(()=>{
 				this.isImgAlert = false;
@@ -433,7 +433,7 @@
 		}
 	}
 </script>
-	
+
 </script>
 
 <style>

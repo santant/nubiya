@@ -4,7 +4,7 @@
 		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
 		  </router-link>
-		</mt-header>	
+		</mt-header>
 		<div class="bottom">
 	    <div class="description">
 	        <div class="content">
@@ -19,7 +19,7 @@
 	        <div class="addCon_topText">
 	            感动幸福的瞬间，定格在美好的时间。365天的光影记忆，现为你独家定制。
 	        </div>
-	        <div class="addCon_topPic"> 
+	        <div class="addCon_topPic">
 	            <img  :src="imgHost+'static/img/calendar_detail/1.jpg'" class="addRound" />
 	        </div>
 	        <div class="addCon_midText">
@@ -29,9 +29,9 @@
 	                用你的照片定制专属台历，自选封面及12张内页，可任意选择起始月份。
 	            </div>
 	        </div>
-	        <div class="addCon_topPic"> 
+	        <div class="addCon_topPic">
 	            <img  :src="imgHost+'static/img/calendar_detail/2.jpg'" class="addRound" />
-	            
+
 	        </div>
 	        <div class="addCon_topPicText">
 	        </div>
@@ -42,23 +42,23 @@
 	                白色、咖啡色2种底托可选，横版、竖版两种规格，随心装饰家居及办公桌面空间。
 	            </div>
 	        </div>
-	        <div class="addCon_topPic"> 
+	        <div class="addCon_topPic">
 	            <img  :src="imgHost+'static/img/calendar_detail/3.jpg'" class="addRound" />
-	            
+
 	        </div>
 	    </div>
-	    
+
 	</div>
 	<div class="btn_box">
 	    	<router-link to="tlSelect?category=taili">
 	        <div class="made_btn" id="calendar" style="color: #333;">开始定制</div>
-	    </router-link>   
+	    </router-link>
 	    </div>
 	</div>
 </template>
 
 <script>
-	import Api from '../../../API.js'
+	import Api from '@/api.js'
 import { Swipe, SwipeItem } from 'mint-ui';
 export default {
 	  data () {

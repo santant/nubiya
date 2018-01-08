@@ -10,7 +10,7 @@
 		<div class="exchangeInput useYhj" v-tap='{methods:selectCoupon,indexs:"no"}'>
 			<p>不使用优惠券</p>
 			<div class="selectBtn">
-				<div class="clearXin" v-tap="{methods:noUseCoupon}" v-show="allcouponBool == true">					
+				<div class="clearXin" v-tap="{methods:noUseCoupon}" v-show="allcouponBool == true">
 				</div>
 			</div>
 		</div>
@@ -26,9 +26,9 @@
 						<p>有效期至{{itmes.validEndDate}}</p>
 					</div>
 					<div class="clears" >
-						
-						<div class="clearXin" v-show="itmes.selectBool == true">	
-							
+
+						<div class="clearXin" v-show="itmes.selectBool == true">
+
 						</div>
 					</div>
 				</li>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import Api from '../../../API.js'
+import Api from '@/api.js'
 import { Swipe, SwipeItem, Indicator } from 'mint-ui';
 export default {
 	  data () {
@@ -57,18 +57,18 @@ export default {
 	     	useClassName:'',
 	     	selectBool:false,
 	     	allcouponBool:false
-	     	
+
 	    }
 	  },
     methods:{
 		linkGo(){
 			this.vurRouterGo();
 		},
-		clearStore(){	
-			
+		clearStore(){
+
 		},
 		selectCoupon(params) {
-			
+
 			if(params.indexs == 'no'){
 				this.allcouponBool = ! this.allcouponBool
 				for (var i = 0; i < this.dataList.length; i++) {
@@ -88,11 +88,11 @@ export default {
 			}
 		},
 		noUseCoupon(){
-			
+
 		}
     },
     mounted(){
-    	   Indicator.open({text: '加载中...',spinnerType: 'fading-circle'}); 
+    	   Indicator.open({text: '加载中...',spinnerType: 'fading-circle'});
 //		var oSKU =''
 //  		//默认最优优惠劵
 //		if (sessionStorage.getItem('skus')=='baobaoshu'){
@@ -127,5 +127,5 @@ export default {
 </script>
 
 <style>
-	
+
 </style>

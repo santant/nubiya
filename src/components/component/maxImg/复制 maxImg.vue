@@ -193,7 +193,7 @@
 </template>
 <script>
 	import { Toast, Actionsheet, Popup, Indicator, MessageBox } from 'mint-ui';
-	import Api from '../../../API.js'
+	import Api from '@/api.js'
 	let regx = /[#$&\^*》><《@#￥/]/; //验证非法字符的正则
 	export default {
 		data() {
@@ -203,7 +203,7 @@
 				titleEdit: {
 					title: '',
 					titleEdit: ''
-				}, 
+				},
 				typeHtml: [], //宝宝书html模版
 				lomok: [], //lomok卡的html模版
 				sheetVisible: false, //隐藏弹出框的值
@@ -211,7 +211,7 @@
 				checkBS: true, //更换板式
 				selectBS: false, //板式选择的模版页面
 				textareaTexts: false, //文本弹出框编辑
-				previewPage: false, //预览页面切换      
+				previewPage: false, //预览页面切换
 				bbsCoustName: "", //宝宝书再次编辑索引
 				bbs: {
 					oPrice: JSON.parse(sessionStorage.getItem("bbsSlsectDate")).price, //产品的价格
@@ -471,9 +471,9 @@
 					}
 					//计算素材库图片的位置
 					//                setTimeout(function(){
-					//	                $("#bbsImg .img_div ul li").each(function(i,el){                  
-					//	                  dragThumb($(el).find("img"),$(el));                    
-					//	                })  
+					//	                $("#bbsImg .img_div ul li").each(function(i,el){
+					//	                  dragThumb($(el).find("img"),$(el));
+					//	                })
 					//              	  },300)
 					//关闭弹窗
 					Indicator.close();
@@ -534,7 +534,7 @@
 					//再次掉起编辑器操作换图
 					this.editorImage(this.bbs.imgEdit);
 					console.log("编辑器",this.bbs.imgEdit)
-					
+
 				}
 
 				console.log(jsonDpi)
@@ -589,7 +589,7 @@
 					Toast('网络错误!');
 				})
 			},
-			editWork() { //保存作品 
+			editWork() { //保存作品
 				this.assembleData();
 			},
 			goAnchor(selector) { //跳转锚点的函数
@@ -632,7 +632,7 @@
 				var oThis = this;
 				this.selectBS = false;
 				var oIndexs = 'bbs' + (this.bbs.index2 + 1)
-				//动态修改模版的板式 
+				//动态修改模版的板式
 				if(this.bbs.oTppe_type != this.bbs.index2 + 1) {
 					this.typeHtml[this.bbs.index1] = this.dataImg.imgArrTypeData[oIndexs];
 					//修改模版板式之后清空他map里面的数据
@@ -665,7 +665,7 @@
 				$("#bbsImg .img_div ul li").removeClass("liActive")
 				$("#bbsImg .img_div ul li").eq(params.index).addClass("liActive")
 			},
-			ActionsheetIn(params) { //ActionsheetIn 弹出框显示，选择图片上传 
+			ActionsheetIn(params) { //ActionsheetIn 弹出框显示，选择图片上传
 				console.log(params.event.target)
 				//图片上传功能
 				if($(params.event.target).hasClass("sucaiClass")) {
@@ -813,7 +813,7 @@
 			//			console.log(fns)
 			//		})
 
-			//首先拿到从父级传递的必要数据回填到组件中	
+			//首先拿到从父级传递的必要数据回填到组件中
 			this.titleEdit.title = this.dataImg.dataMsg.title
 			this.titleEdit.titleEdit = this.dataImg.dataMsg.titleEdit
 			this.bbs.workEdit.defDbId = this.dataImg.dataMsg.defDbId
@@ -949,7 +949,7 @@
 							}
 						}
 						//关闭加载弹窗
-						Indicator.close();						
+						Indicator.close();
 					}, 1000)
 				})
 			}
