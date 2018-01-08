@@ -1,57 +1,7 @@
 <template>
 	<div id="index" style="width: 100%;height:100%;">
-		<!--<div class="diaocha">
-			<a href="http://testbuilder.artup.com/test/diaocha/wx/index.html"><i>📃</i>问题反馈</a>
-		</div>-->
-		<div class="swipeDiv" style="width: 100%;height: 400px;">
-			<mt-swipe :auto="4000">
-				<mt-swipe-item v-for="(img,index) in indexImg">
-					<a class="a_herf" :href="img.link">
-						<img @click="showGqtz(index)" :src="img.imgUrl" />
-					</a>
-				</mt-swipe-item>
-			</mt-swipe>
-		</div>
-		<div v-DomHeight class="btn_btn">
-			<ul class="btn_ul">
-				<li>
-					<router-link to="bbsMsg?category=xiaoshiguang">
-						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe625;</i>
-						<p>小时光</p>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="huaceMsg?category=shiguangji">
-						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe7ca;</i>
-						<p>拾光集</p>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="tlMsg?category=taili">
-						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe686;</i>
-						<p>台历</p>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="khMsg?category=kuanghua">
-						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe628;</i>
-						<p>框画</p>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="hbMsg?category=haibao">
-						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe609;</i>
-						<p>海报</p>
-					</router-link>
-				</li>
-				<li>
-					<router-link to="user">
-						<i style="font-size: 3.1875rem;" class="icon iconfont">&#xe64b;</i>
-						<p>个人中心</p>
-					</router-link>
-				</li>
-			</ul>
-		</div>
+		<p>404</p>
+		<p>您请求的页面不存在!!</p>
 	</div>
 
 </template>

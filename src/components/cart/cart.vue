@@ -117,9 +117,10 @@ export default {
 								if(res.data.code == 'success'){
 									Toast('订单删除成功');
 									if(this.dataList.length < 1){
-										MessageBox.alert('购物车为空，请去首页添加购买的产品').then(action => {
-					        				location.href=""		
-										});
+										Toast('购物车为空，请去购买产品吧!');
+//										MessageBox.alert('购物车为空，请去首页添加购买的产品').then(action => {
+//					        				location.href=""		
+//										});
 									}
 								}
 							},err=>{
@@ -258,9 +259,10 @@ export default {
 				console.log(res)
 				this.dataList = res.data.results;
 				if(this.dataList.length < 1){
-						MessageBox.alert('购物车为空，请去首页添加购买的产品').then(action => {
-        				location.href=""		
-					});
+//						MessageBox.alert('购物车为空，请去首页添加购买的产品').then(action => {
+//      				location.href=""		
+//					});
+Toast('购物车为空，请去购买产品吧!');
 				}
 				for (var i = 0; i < this.dataList.length; i++) {
 					this.dataList[i].isOK = false;

@@ -143,9 +143,10 @@
 		        				if(res.data.code == 'success'){
 									Toast('订单删除成功');
 									if(this.dataList.length < 1){
-										MessageBox.alert('您当前没有任何订单请去创建').then(action => {
-					        				location.href=""
-										});
+										Toast('您当前没有任何订单!');
+//										MessageBox.alert('您当前没有任何订单请去创建').then(action => {
+//					        				location.href=""
+//										});
 									}
 								}
 			        		},err=>{
@@ -179,9 +180,10 @@
 	        		}
         		}
         		if(this.dataList.length < 1){
-        			MessageBox.alert('您当前没有任何订单请去创建').then(action => {
-        			  location.href=""
-			   })
+        			Toast('您当前没有任何订单!');
+//      			MessageBox.alert('您当前没有任何订单请去创建').then(action => {
+//      			  location.href=""
+//			   })
         		}
         	},err=>{
 			Toast('数据请求错误')
