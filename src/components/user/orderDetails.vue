@@ -10,7 +10,7 @@
       <span class="state-text">{{order.orderState}}</span>
       <span class="order-amount">需要付款：￥399</span>
     </div>
-    <div class="making">
+    <div class="making" v-if="order.status >= 7 && !express">
       <i class="iconfont icon-xiangzi1"></i>
       <span class="making-test">生产中</span>
     </div>
@@ -19,7 +19,8 @@
       <span class="express-text">{{express.companyName}}</span>
       <div class="express-details">
         <span class="express-number">物流单号　{{express.id}}</span>
-        <button class="copy-btn">复制</button>
+        <input :value="express.id" class="dictatorship" ref="expressId"/>
+        <button class="copy-btn" @click.stop="copyExpressId">复制</button>
       </div>
       <div class="express-details" v-show="express.show" v-for="info in express.info">
         <div>{{info.accept_time}}</div>
@@ -34,14 +35,16 @@
     </div>
     <div class="border"></div>
     <div class="order-goods-list">
-      <div class="order-goods-item">
+      <div class="order-goods-item" v-for="item in order.cars">
         <div class="thumbnail"
-             style="background-image: url('https://wx4.sinaimg.cn/mw690/a1019e1ely1fn0d15u54gj20qo1407cl.jpg');"></div>
+             :style="{backgroundImage: 'url('+item.thumbnailImageUrl+')'}"></div>
         <div class="order-goods-info">
-          <span class="order-goods-name">未命名未命名</span>
-          <span class="order-goods-type">框画</span>
-          <span class="order-goods-size">400X500mm</span>
-          <span class="order-goods-color">原木框棕色</span>
+          <span class="order-goods-name" v-if="item.sku">{{item.sku}}</span>
+          <span class="order-goods-type" v-if="item.sku && item.sku.split('.').length">{{item.sku.split('.')[0]}}</span>
+          <span class="order-goods-size"
+                v-if="item.sku && item.sku.split('.').length >= 1">{{item.sku.split('.')[1]}}</span>
+          <span class="order-goods-color"
+                v-if="item.sku && item.sku.split('.').length >= 2">{{item.sku.split('.')[2]}}</span>
         </div>
         <div class="unit-price-count">
           <span class="unit-price">￥{{order.total}}</span>
@@ -54,9 +57,10 @@
       <span id="channel-name">努比亚支付</span>
     </div>
     <div class="order-data">
-      <div class="line order-number">
+      <div class="line order-number" v-if="order.code">
         <span>订单编号：{{order.code}}</span>
-        <button class="btn copy-btn">复制</button>
+        <input :value="order.code" class="dictatorship" ref="orderCode"/>
+        <button class="btn copy-btn" @click="copyOrderCode">复制</button>
       </div>
       <div class="line coupons" v-if="order.discount">
         <label for="coupons-amount">使用优惠券</label>
@@ -81,9 +85,9 @@
         <span id="payment-amount">￥{{order.total}}</span>
       </div>
       <div class="order-operation">
-        <button class="btn cancel-btn">取消订单</button>
-        <button class="btn pay-btn">去支付</button>
-        <button class="btn delete-btn">删除订单</button>
+        <button class="btn cancel-btn" v-if="order.orderStateCode==='Pending'">取消订单</button>
+        <button class="btn pay-btn" v-if="order.orderStateCode==='Pending'">去支付</button>
+        <button class="btn delete-btn" v-if="order.orderStateCode==='Canceled'">删除订单</button>
       </div>
     </div>
   </div>
@@ -103,6 +107,16 @@
       }
     },
     methods: {
+      copyExpressId: function () {
+        this.$refs.expressId.select()
+        document.execCommand('Copy')
+        Toast('单号复制成功！')
+      },
+      copyOrderCode: function () {
+        this.$refs.orderCode.select()
+        document.execCommand('Copy')
+        Toast('订单编号复制成功！')
+      },
       linkGo() {
         this.$router.go(-1)
       },
@@ -134,6 +148,10 @@
     color: #333;
     font-size: .8rem;
     background: #f4f5f5;
+    .dictatorship {
+      position: absolute;
+      top: -9999px;
+    }
     .iconfont {
       display: inline-block;
       width: 1.5em;
@@ -161,6 +179,7 @@
         line-height: 24px;
       }
       .copy-btn {
+        margin-left: 10px;
         line-height: 1.44rem;
         width: 5em;
         text-align: center;
