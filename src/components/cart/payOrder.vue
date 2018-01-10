@@ -45,9 +45,9 @@
               <span id="total">￥{{total | toFixedTwo}}</span>
             </li>
             <li class="useCard">
-              <p v-tap='{methods:selectCards,index:1}'>优惠劵 <span class=""><i class="icon iconfont">&#xe639;</i></span>
+              <p style="border: none;width: 98%;" v-tap='{methods:selectCards,index:1}'>优惠劵 <span class=""><i class="icon iconfont">&#xe639;</i></span>
               </p>
-              <p v-tap='{methods:selectCards,index:2}'>礼品卡<span><i class="icon iconfont">&#xe639;</i></span></p>
+              <!--<p v-tap='{methods:selectCards,index:2}'>礼品卡<span><i class="icon iconfont">&#xe639;</i></span></p>-->
             </li>
             <li v-tap="{methods:useCoupon}" v-show="userCouponCode">
               <span>优惠券</span>
@@ -168,12 +168,12 @@
             this.$router.push({
               path: '/orderStatus',
               query: {
-                'paymentType': 'wx',
+                'paymentType': 'shijie',
                 'addressId': this.addressData.dbId,
                 'dbId': orderDbId,
                 'userDbId': userDbId,
                 'openId': openId,
-                'client': 'mobile',
+                'client': 'shijie',
                 'sorce': 'payOrder',
                 'isZeroPaid': isZeroPaid
               }
