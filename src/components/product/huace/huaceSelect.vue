@@ -36,7 +36,7 @@
 			<div class="price">
 				价格：<span><b>¥</b>{{price}}</span></div>
 				<!--<router-link to='/huaceImgs'></router-link>-->
-				<a class="crectOrder" href="#huaceImgs">下一步</a>
+				<div class="crectOrder" v-tap="{methods : nextPage}" href="#huaceImgs">下一步</div>
 		  </div>
 	</div>
 </template>
@@ -79,7 +79,7 @@
 			},
 			nextPage(){//下一页
 				// location.href="#huaceImgs"
-				//this.$router.push({ path : '/huaceImgs' });
+				this.$router.push({ path : '/huaceImgs' });
 			},
 			getPrice(dom){//获得页面的价格
 					this.bbsSlsectDate={};

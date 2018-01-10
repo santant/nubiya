@@ -26,7 +26,7 @@
         		userDbId:this.$route.query.userDbId,
         		openId:this.$route.query.openId,
             client:'mobile',
-        		subject:'微信支付'
+        		subject:'努比亚支付'
         	};
         	if(this.$route.query.isZeroPaid == 1){
         		Api.car.updataOrderStatus3Pay({id:jsons.dbId, status:3}).then(res=>{
@@ -42,56 +42,59 @@
         	Api.car.orderPay(jsons).then(res=>{
             //alert(res.data.code);
     		  if(res.data.code === 'success'){
+    		  	alert(JSON.stringify(res.data))
 					//手机微信支付
-					wxpay(res.data,function callback(res){
-                        //alert(res.errMsg);
-						if(res.errMsg=="chooseWXPay:fail"){
-							Toast('调起支付失败');
-							Api.car.updataOrderStatus2Pay({dbId:jsons.dbId, status:1}).then(res=>{
-								if(res.data.code == 'success'){
-                                    var stateObj = { foo: "bar" };
-                                    history.pushState(stateObj, "", "#user");
-
-									this.$router.push( { path : '/orderList'})
-								}
-
-							},err=>{
-								Toast('请求数据失败');
-							})
-
-						}else if(res.errMsg == "chooseWXPay:cancel" ) {//用户取消订单
-
-							Api.car.updataOrderStatus2Pay({dbId:jsons.dbId, status:1}).then(res=>{
-								if(res.data.code == 'success'){
-									//this.$router.replace({path:"/orderList"})
-//												this.$router.replace({path:"/orderList"})
-                                    var stateObj = { foo: "bar" };
-                                    history.pushState(stateObj, "", "#user");
-									this.$router.push( { path : '/orderList'})
-								}
-
-							},err=>{
-
-                                 var stateObj = { foo: "bar" };
-                                history.pushState(stateObj, "", "#user");
-
-								Toast('请求数据失败');
-                                this.$router.push( { path : '/orderList'})
-							})
-
-                            var stateObj = { foo: "bar" };
-                            history.pushState(stateObj, "", "#user");
-							Toast('用户取消支付');
-							this.$router.push( { path : '/orderList'})
-
-						}else{
-							Toast('支付成功');
-                            //this.$router.replace({path:"/orderList"})
-                            var stateObj = { foo: "bar" };
-                            history.pushState(stateObj, "", "#user");
-                            this.$router.push( { path : '/orderList'})
-						}
-					});
+//					wxpay(res.data,function callback(res){
+//                      //alert(res.errMsg);
+//                      
+//						if(res.errMsg=="chooseWXPay:fail"){
+//							Toast('调起支付失败');
+//							Api.car.updataOrderStatus2Pay({dbId:jsons.dbId, status:1}).then(res=>{
+//								if(res.data.code == 'success'){
+//                                  var stateObj = { foo: "bar" };
+//                                  history.pushState(stateObj, "", "#user");
+//
+//									this.$router.push( { path : '/orderList'})
+//								}
+//
+//							},err=>{
+//								Toast('请求数据失败');
+//							})
+//
+//						}else if(res.errMsg == "chooseWXPay:cancel" ) {//用户取消订单
+//
+//							Api.car.updataOrderStatus2Pay({dbId:jsons.dbId, status:1}).then(res=>{
+//								if(res.data.code == 'success'){
+//									//this.$router.replace({path:"/orderList"})
+////												this.$router.replace({path:"/orderList"})
+//                                  var stateObj = { foo: "bar" };
+//                                  history.pushState(stateObj, "", "#user");
+//									this.$router.push( { path : '/orderList'})
+//								}
+//
+//							},err=>{
+//
+//                               var stateObj = { foo: "bar" };
+//                              history.pushState(stateObj, "", "#user");
+//
+//								Toast('请求数据失败');
+//                              this.$router.push( { path : '/orderList'})
+//							})
+//
+//                          var stateObj = { foo: "bar" };
+//                          history.pushState(stateObj, "", "#user");
+//							Toast('用户取消支付');
+//							this.$router.push( { path : '/orderList'})
+//
+//						}else{
+//							Toast('支付成功');
+//                          //this.$router.replace({path:"/orderList"})
+//                          var stateObj = { foo: "bar" };
+//                          history.pushState(stateObj, "", "#user");
+//                          this.$router.push( { path : '/orderList'})
+//						}
+//					
+//					});
 
 				} else {
 
