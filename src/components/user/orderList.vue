@@ -92,10 +92,7 @@
     methods: {
       orderDetails(order) {
         this.$router.push({
-          path: '/orderDetails',
-          query: {
-            code: order.code
-          }
+          path: `/orderDetails/${order.dbId}`
         })
       },
       gotoOrderPay(params) {

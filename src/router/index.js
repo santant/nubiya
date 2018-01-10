@@ -113,7 +113,7 @@ let router = new VueRouter({
     path: '/OrderList',
     component: OrderList // 订单列表
   }, {
-    path: '/orderDetails',
+    path: '/orderDetails/:orderDbId',
     component: orderDetails // 订单列表
   }, {
     path: '/OrderStatus',

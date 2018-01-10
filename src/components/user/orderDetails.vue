@@ -7,26 +7,30 @@
     </mt-header>
     <div class="order-state">
       <i class="iconfont icon-yizhifu"></i>
-      <span class="state-text">待支付</span>
+      <span class="state-text">{{order.orderState}}</span>
       <span class="order-amount">需要付款：￥399</span>
     </div>
     <div class="making">
       <i class="iconfont icon-xiangzi1"></i>
       <span class="making-test">生产中</span>
     </div>
-    <div class="express">
+    <div class="express" v-if="express" @click="express.show=!express.show">
       <i class="iconfont icon-kuaidi"></i>
-      <span class="express-text">顺丰快递</span>
+      <span class="express-text">{{express.companyName}}</span>
       <div class="express-details">
-        <span class="express-number">物流单号　123456789</span>
+        <span class="express-number">物流单号　{{express.id}}</span>
         <button class="copy-btn">复制</button>
+      </div>
+      <div class="express-details" v-show="express.show" v-for="info in express.info">
+        <div>{{info.accept_time}}</div>
+        <div>{{info.remark}}</div>
       </div>
     </div>
     <div class="address-info">
       <i class="iconfont icon-icon-yxj-address"></i>
-      <span class="address-name">殷星</span>
-      <span class="address-phone">130****5415</span>
-      <span class="address-details">北京市-顺义区-高立庄1号</span>
+      <span class="address-name">{{order.consignee}}</span>
+      <span class="address-phone">{{order.mobile || ''}}</span>
+      <span class="address-details">{{order.address}}</span>
     </div>
     <div class="border"></div>
     <div class="order-goods-list">
@@ -40,8 +44,8 @@
           <span class="order-goods-color">原木框棕色</span>
         </div>
         <div class="unit-price-count">
-          <span class="unit-price">￥399</span>
-          <span class="count">X1</span>
+          <span class="unit-price">￥{{order.total}}</span>
+          <span class="count">X{{order.num}}</span>
         </div>
       </div>
     </div>
@@ -51,21 +55,21 @@
     </div>
     <div class="order-data">
       <div class="line order-number">
-        <span>订单编号：2017062759052212169</span>
+        <span>订单编号：{{order.code}}</span>
         <button class="btn copy-btn">复制</button>
       </div>
-      <div class="line coupons">
+      <div class="line coupons" v-if="order.discount">
         <label for="coupons-amount">使用优惠券</label>
-        <span id="coupons-amount">-￥89.00</span>
+        <span id="coupons-amount">-￥{{order.discount}}</span>
       </div>
       <div class="line order-time">
         <span class="order-time-label">下单时间：</span>
-        <span class="order-time-value">2017-06-27 11:16:13</span>
+        <span class="order-time-value">{{order.createdDt}}</span>
       </div>
       <div class="line order-sum">
         <div class="row">
           <label for="goods-amount">商品总额</label>
-          <span id="goods-amount">￥310</span>
+          <span id="goods-amount">￥{{order.total}}</span>
         </div>
         <div class="row">
           <label for="freight">+运费</label>
@@ -74,7 +78,7 @@
       </div>
       <div class="line actual-payment">
         <label for="payment-amount">实付款：</label>
-        <span id="payment-amount">￥310.00</span>
+        <span id="payment-amount">￥{{order.total}}</span>
       </div>
       <div class="order-operation">
         <button class="btn cancel-btn">取消订单</button>
@@ -92,16 +96,35 @@
   export default {
     data() {
       return {
-        userDbId: ''
+        userDbId: '',
+        orderDbId: this.$route.params.orderDbId,
+        order: {},
+        express: null
       }
     },
     methods: {
       linkGo() {
         this.$router.go(-1)
+      },
+      _queryOrder() {
+        Api.car.queryOrder({
+          userDbId: this.userDbId,
+          orderDbId: this.orderDbId
+        }).then(res => {
+          this.order = res.data[0]
+          if (this.order.logisticsMap && this.order.logisticsMap.code === 'success') {
+            this.express = Object.assign({show: false}, this.order.logisticsMap.orderLogisticsInfo[0].listInfo[0])
+          }
+        })
       }
     },
     mounted() {
       this.userDbId = localStorage['userDbId']
+      if (!this.orderDbId || !this.userDbId) {
+        this.linkGo()
+        return
+      }
+      this._queryOrder()
     }
   }
 </script>
@@ -138,13 +161,11 @@
         line-height: 24px;
       }
       .copy-btn {
-        line-height: 24px;
-        box-sizing: border-box;
-        padding: 0 .6rem;
-        margin-left: .4rem;
-        font-size: .48rem;
+        line-height: 1.44rem;
+        width: 5em;
+        text-align: center;
+        border: 1px solid #999;
         color: #999;
-        border: 1px solid #c7c7c7;
         background: #fff;
         outline: 0;
       }
@@ -242,6 +263,7 @@
         }
       }
       .order-operation {
+        padding: 0 .66rem 1rem 0;
         text-align: right;
       }
       .btn {
