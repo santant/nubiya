@@ -85,20 +85,21 @@
         <span id="payment-amount">￥{{order.total}}</span>
       </div>
       <div class="order-operation">
-        <button class="btn cancel-btn" v-if="order.orderStateCode==='Pending'">取消订单</button>
-        <button class="btn pay-btn" v-if="order.orderStateCode==='Pending'">去支付</button>
-        <button class="btn delete-btn" v-if="order.orderStateCode==='Canceled'">删除订单</button>
+        <button class="btn cancel-btn" v-if="order.orderStateCode==='Pending'" @click="cancelOrder(order)">取消订单</button>
+        <button class="btn pay-btn" v-if="order.orderStateCode==='Pending'" @click="payOrder(order)">去支付</button>
+        <button class="btn delete-btn" v-if="order.orderStateCode==='Canceled'" @click="deleteOrder(order)">删除订单
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {Toast, Actionsheet, Popup, Indicator, MessageBox} from 'mint-ui'
+  import {Toast, MessageBox} from 'mint-ui'
   import Api from '@/api.js'
 
   export default {
-    data() {
+    data: function () {
       return {
         userDbId: '',
         orderDbId: this.$route.params.orderDbId,
@@ -107,6 +108,79 @@
       }
     },
     methods: {
+      /**
+       * 取消订单
+       * @param params
+       */
+      cancelOrder: function (params) {
+        MessageBox({
+          title: '我的订单',
+          message: '您确认取消该条订单吗？',
+          showCancelButton: true
+        }).then((res) => {
+          if (res === 'confirm') {
+            Api.car.cancleOrder2(params.code).then(res => {
+              this.dataList[params.index].status = -1
+              this.dataList[params.index].orderState = '已取消'
+            }, () => {
+              Toast('数据请求错误')
+            })
+          }
+        })
+      },
+      deleteOrder: function (order) {
+        let that = this
+        MessageBox({
+          title: '我的订单',
+          message: '您确认删除此条订单吗?',
+          showCancelButton: true
+        }).then((res) => {
+          if (res === 'confirm') {
+            Api.car.deleteOrders(order.code).then(res => {
+              if (res.data.code === 'success') {
+                Toast('订单删除成功')
+                order.orderState = '已删除'
+                order.orderStateCode = 'delete'
+              }
+            }, () => {
+              Toast('数据请求错误')
+            })
+          }
+        })
+      },
+      /**
+       * 立即支付
+       * @param params
+       */
+      payOrder: function (params) {
+        let ordJson = {
+          orderDbId: params.dbId,
+          userDbId: localStorage['userDbId']
+        }
+        Api.car.cloneOrder(ordJson).then(res => {
+          if (res.data.code === 'success') {
+            let orderDbId = res.data.orderDbId
+            let openId = res.data.openId
+            let addressDbId = res.data.addressDbId
+            let userDbId = localStorage['userDbId']
+            this.$router.push({
+              path: '/orderStatus',
+              query: {
+                paymentType: 'wx',
+                addressId: addressDbId,
+                dbId: orderDbId,
+                userDbId: userDbId,
+                openId: openId,
+                sorce: 'payOrder'
+              }
+            })
+          } else {
+            Toast('此订单数据错误，请联系客服！')
+          }
+        }, () => {
+          Toast('数据请求错误')
+        })
+      },
       copyExpressId: function () {
         this.$refs.expressId.select()
         document.execCommand('Copy')
@@ -117,10 +191,10 @@
         document.execCommand('Copy')
         Toast('订单编号复制成功！')
       },
-      linkGo() {
+      linkGo: function () {
         this.$router.go(-1)
       },
-      _queryOrder() {
+      _queryOrder: function () {
         Api.car.queryOrder({
           userDbId: this.userDbId,
           orderDbId: this.orderDbId
@@ -132,7 +206,7 @@
         })
       }
     },
-    mounted() {
+    mounted: function () {
       this.userDbId = localStorage['userDbId']
       if (!this.orderDbId || !this.userDbId) {
         this.linkGo()
