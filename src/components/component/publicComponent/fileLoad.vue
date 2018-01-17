@@ -193,14 +193,12 @@
 				var browBtn = document.getElementById('browseButton');
 				r.assignBrowse(browBtn, false);
 				r.on('filesAdded', function(array) {
-
 					if(array.length > 1) {
 						$.each(array, function(idx, file) {
 							file.chunks = [];
 						});
 						alert('只能上传一张图片');
 						return;
-
 					}
 					var ok = validateUploadFiles($, array);
 					if(ok) {
