@@ -40,13 +40,11 @@
         	}else{
 
         	Api.car.orderPay(jsons).then(res=>{
-            //alert(res.data.code);
     		  if(res.data.code === 'success'){
 //  		  	var orderJsonStr = "{\"cp_order_id\":\"tdyshshhs\",\"product_name\":\"dddddd\",\"product_des\":\"dddddd\",\"product_price\":0.009999999776482582,\"product_num\":2,\"data_timestamp\":546466767676}";
 			var orderJsonStr = {"cp_order_id":res.data.cp_order_id,"product_name":res.data.product_name,"product_des":res.data.product_des,"amount":res.data.amount,"product_price":res.data.product_price,"product_num":res.data.product_num,"data_timestamp":res.data.data_timestamp}
-			alert(JSON.stringify(orderJsonStr))
+//			alert(JSON.stringify(orderJsonStr))
 			if(window.YaChang){ //如果方法存在
-				alert('进入方法')
 				window.YaChang.onSumResult(JSON.stringify(orderJsonStr))
 			}
 			console.log(res.data)
