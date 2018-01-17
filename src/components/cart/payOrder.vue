@@ -38,7 +38,8 @@
           <ul>
             <li>
               <span>支付方式</span>
-              <span><i class="icon iconfont">&#xe605;</i>微信支付</span>
+              <!--<span><i class="icon iconfont">&#xe605;</i>微信支付</span>-->
+              <span>努比亚支付</span>
             </li>
             <li>
               <span>商品金额</span>
@@ -152,7 +153,8 @@
           cars: this.car,
           addressDbId: this.addressData.dbId,
           couponCode: this.couponCode,
-          isUseCard: this.isUseCard
+          isUseCard: this.isUseCard,
+          'client': 'shijie',
         }
         //如果session有channelCode 就存入
         if (sessionStorage.getItem("channelCode")) {

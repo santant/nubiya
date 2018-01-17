@@ -2,9 +2,9 @@
 	<div id="couponExchange">
 		<!--头-->
 		<mt-header title="优惠券">
-		  <router-link to="" v-tap="{methods:linkGo}" slot="left">
+		  <!--<router-link to="" v-tap="{methods:linkGo}" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		  </router-link>
+		  </router-link>-->
 		  <mt-button icon=""  slot="right"></mt-button>
 		</mt-header>
 		<div class="exchangeInput">

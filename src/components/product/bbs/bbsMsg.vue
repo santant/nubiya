@@ -1,9 +1,9 @@
 <template>
 	<div id="bbsMsg">
 		<mt-header title="小时光">
-		  <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
+		  <!--<router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		  </router-link>
+		  </router-link>-->
 		</mt-header>
 		<!--<span><a href="#bbsSelect">宝宝书介绍</a></span>-->
 		<div class="main1">

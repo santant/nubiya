@@ -1,9 +1,9 @@
 <template>
   <div id="index" style="width: 100%;height:100%;">
-    <div>
+    <!--<div>
       <p class="class_4">404</p>
       <p class="class_msg">您请求的页面不存在!!</p>
-    </div>
+    </div>-->
   </div>
 
 </template>

@@ -1,9 +1,9 @@
 <template>
 	<div id="cart">
 		<mt-header title="购物车">
-		  <router-link to="" v-tap="{methods:linkGo}" slot="left">
+		  <!--<router-link to="" v-tap="{methods:linkGo}" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		  </router-link>
+		  </router-link>-->
 		  <mt-button icon="" @click.native='deleteCar' slot="right">删除</mt-button>
 		</mt-header>
 		<!--购物车列表-->
