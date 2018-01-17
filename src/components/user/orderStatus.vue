@@ -47,7 +47,7 @@
 			alert(JSON.stringify(orderJsonStr))
 			if(window.YaChang){ //如果方法存在
 				alert('进入方法')
-				window.YaChang.onSumResult(orderJsonStr)
+				window.YaChang.onSumResult(JSON.stringify(orderJsonStr))
 			}
 			console.log(res.data)
 			console.log(orderJsonStr)
