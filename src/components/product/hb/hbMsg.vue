@@ -61,6 +61,13 @@
         <div class="made_btn" style="color: #333;">开始定制</div>
     </router-link>
     </div>
+    <form id="frm_identityA" style="margin-bottom: 200px;" action="" enctype="multipart/form-data"> 
+    <input type="file" name="file"  id="inputfile"/>
+	<input type="hidden" name="utoken" value="c146516f6cf649f4b33742c551634250"/>
+</form>
+<div id="feedback">
+	<img src=""/>
+</div> 
 	</div>
 </template>
 <script>
@@ -80,6 +87,25 @@ export default {
     mounted(){
     	    //更改session
     		this.addToSession();
+    		
+
+		$("#inputfile").change(function(){
+		    var formData = new FormData($("#frm_identityA")[0]);  
+		    $.ajax({
+		        url:'http://testuser.artup.com/artup-user-api/f/modifyUserPhoto',
+		        type:'POST',
+		        data:formData,
+		        cache: false,
+		        contentType: false,    
+		        processData: false,    
+		        success:function(data){
+		          alert(JSON.stringify(data));
+		          $("#feedback img").attr("src",data.data.photoThumbUrl)
+//		          console.log(data.data.photoThumbUrl)
+		        }
+		    });
+		});
+
 	}
 }
 </script>
