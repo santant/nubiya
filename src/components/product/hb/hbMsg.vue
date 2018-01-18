@@ -61,10 +61,16 @@
         <div class="made_btn" style="color: #333;">开始定制</div>
     </router-link>
     </div>
+
+    		<input type="file"  />
+
+
+    
+    
     <form id="frm_identityA" style="margin-bottom: 200px;" action="" enctype="multipart/form-data"> 
-    <input type="file" name="file"  id="inputfile"/>
-	<input type="hidden" name="utoken" value="c146516f6cf649f4b33742c551634250"/>
-</form>
+    		<input type="file" name="file"  id="inputfile"/>
+		<input type="hidden" name="utoken" value="c146516f6cf649f4b33742c551634250"/>
+	</form>
 <div id="feedback">
 	<img src=""/>
 </div> 
