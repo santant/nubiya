@@ -85,9 +85,13 @@
         <span id="payment-amount">￥{{order.total}}</span>
       </div>
       <div class="order-operation">
-        <button class="btn cancel-btn" v-if="order.orderStateCode==='Pending'" @click="cancelOrder(order)">取消订单</button>
+        <!--<button class="btn cancel-btn" v-if="order.orderStateCode==='Pending'" @click="cancelOrder(order)">取消订单</button>
         <button class="btn pay-btn" v-if="order.orderStateCode==='Pending'" @click="payOrder(order)">去支付</button>
-        <button class="btn delete-btn" v-if="order.orderStateCode==='Canceled'" @click="deleteOrder(order)">删除订单
+        <button class="btn delete-btn" v-if="order.orderStateCode==='Canceled'" @click="deleteOrder(order)">删除订单-->
+        	<!--<button  @click="cancelOrder(order)"> 获取订单</button>-->
+        	 <button class="btn cancel-btn" v-if="order.status >= 1"  @click="cancelOrder(order)">取消订单</button>
+        <button class="btn pay-btn" v-if="order.status == 1 " @click="payOrder(order)">去支付</button>
+        <button class="btn delete-btn"  v-if="order.status== -1" @click="deleteOrder(order)">删除订单
         </button>
       </div>
     </div>
@@ -120,8 +124,8 @@
         }).then((res) => {
           if (res === 'confirm') {
             Api.car.cancleOrder2(params.code).then(res => {
-              this.dataList[params.index].status = -1
-              this.dataList[params.index].orderState = '已取消'
+              params.status = -1
+              params.orderState = '已取消'
             }, () => {
               Toast('数据请求错误')
             })
@@ -137,10 +141,10 @@
         }).then((res) => {
           if (res === 'confirm') {
             Api.car.deleteOrders(order.code).then(res => {
-              if (res.data.code === 'success') {
+              if (res.data.status == 1) {
                 Toast('订单删除成功')
                 order.orderState = '已删除'
-                order.orderStateCode = 'delete'
+                order.status = -99
               }
             }, () => {
               Toast('数据请求错误')
@@ -173,6 +177,8 @@
                 openId: openId,
                 sorce: 'payOrder'
               }
+              ,
+              replace:true
             })
           } else {
             Toast('此订单数据错误，请联系客服！')

@@ -104,24 +104,24 @@
 
 				} else {
 
-                    if(res.data.acquireOpenId && res.data.acquireOpenId === 'Y'){
-                        window.location.href= res.data.codeUrl;
-                    } else if(res.data.pay && res.data.pay === 'Y'){
-                        this.$router.push( { path : '/user'})
-                    }
-                    else {
-                        Toast('支付失败');
-                        Api.car.updataOrderStatus2Pay({dbId:jsons.dbId, status:1}).then(res=>{
-                        if(res.data.code == 'success'){
-                            var stateObj = { foo: "bar" }
-                            history.pushState(stateObj, "", "#user")
-							this.$router.push( { path : '/orderList'})
-                        }
-
-                        },err=>{
-                            Toast('请求数据失败');
-                        })
-                    }
+//                  if(res.data.acquireOpenId && res.data.acquireOpenId === 'Y'){
+//                      window.location.href= res.data.codeUrl;
+//                  } else if(res.data.pay && res.data.pay === 'Y'){
+//                      this.$router.push( { path : '/user'})
+//                  }
+//                  else {
+//                      Toast('支付失败');
+//                      Api.car.updataOrderStatus2Pay({dbId:jsons.dbId, status:1}).then(res=>{
+//                      if(res.data.code == 'success'){
+//                          var stateObj = { foo: "bar" }
+//                          history.pushState(stateObj, "", "#user")
+//							this.$router.push( { path : '/orderList'})
+//                      }
+//
+//                      },err=>{
+//                          Toast('请求数据失败');
+//                      })
+//                  }
 
 				}
     	   },err=>{
