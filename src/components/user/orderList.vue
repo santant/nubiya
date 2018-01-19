@@ -116,8 +116,8 @@
                 "userDbId": userDbId,
                 "openId": openId,
                 'sorce': 'payOrder'
-              },
-              replace:true
+              }
+//            ,replace:true
             })
             //this.$router.replace({path:"/orderStatus?paymentType=WX&addressId="+addressDbId+"&dbId="+orderDbId+"&userDbId="+userDbId+"&openId="+openId+'&sorce=payOrder'})
             //location.href = payUrl;
