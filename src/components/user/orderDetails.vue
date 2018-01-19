@@ -170,15 +170,13 @@
             this.$router.push({
               path: '/orderStatus',
               query: {
-                paymentType: 'wx',
+                paymentType: 'shijie',
                 addressId: addressDbId,
                 dbId: orderDbId,
                 userDbId: userDbId,
                 openId: openId,
                 sorce: 'payOrder'
               }
-              ,
-              replace:true
             })
           } else {
             Toast('此订单数据错误，请联系客服！')
