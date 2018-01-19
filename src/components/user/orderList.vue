@@ -1,9 +1,9 @@
 <template>
   <div id="orderList">
     <mt-header title="我的订单">
-      <!--<router-link to="" v-tap='{methods:linkGo}' slot="left">
+      <router-link to="" v-tap='{methods:linkGo}' slot="left">
         <mt-button icon="back">返回</mt-button>
-      </router-link>-->
+      </router-link>
       <mt-button icon="" slot="right"></mt-button>
     </mt-header>
     <div class="order" v-for="(order, indexs) in dataList">

@@ -30,7 +30,7 @@
           var query_tag = this.$route.query.query_tag
           switch (query_tag) {
             case "cart":
-              this.$router.push({path: "/cart", query: {}})
+              this.$router.push({path: "/cart", query: {'isindex':'y'}})
               break;
             case "order":
               this.$router.push({path: "/orderList", query: {}})

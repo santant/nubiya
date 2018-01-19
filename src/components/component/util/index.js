@@ -67,5 +67,12 @@ export default{
      	
      	this.$router.go(-1)
     }
+     
+    //返回app首页
+    Vue.prototype.goApp = function(){
+    		if (window.YaChang){
+    			window.YaChang.goToThirdMall()
+    		}
+    }
   }
 }

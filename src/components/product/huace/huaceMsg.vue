@@ -1,9 +1,9 @@
 <template>
 	<div id="hcMsg">
 		<mt-header title="拾光集">
-		   <!--<router-link to=""  v-tap="{ methods:linkGo }" slot="left">
+		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		  </router-link>-->
+		  </router-link>
 		</mt-header>
 
 		<div class="bottom">
@@ -109,7 +109,7 @@ export default {
 	  },
     methods:{
 		linkGo(){
-			this.vurRouterGo();
+			this.goApp();
 		}
     },
     mounted(){

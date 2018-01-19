@@ -1,9 +1,9 @@
 <template>
 	<div id="cart">
 		<mt-header title="购物车">
-		  <!--<router-link to="" v-tap="{methods:linkGo}" slot="left">
+		 <router-link to="" v-tap="{methods:linkGo}" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		  </router-link>-->
+		  </router-link>
 		  <mt-button icon="" @click.native='deleteCar' slot="right">删除</mt-button>
 		</mt-header>
 		<!--购物车列表-->
@@ -81,7 +81,8 @@ export default {
 			allPic:0,
 			arr:[],
 			picMap:[],
-			checkAllBtn:false
+			checkAllBtn:false ,
+			isindex : ''
 	    }
 	  },
 	 watch:{
@@ -242,10 +243,15 @@ export default {
 				}
 			},
 	        linkGo(){
-				this.vurRouterGo();
+	        		if (this.isindex == 'y'){
+	        			this.goApp();
+	        		}else{
+	        			this.vurRouterGo();
+	        		}				
 			}
 		},
 		mounted(){
+			this.isindex =  this.$route.query.isindex
 			var jsons = {
 	  			userDbId:localStorage.getItem("userDbId"),
 	  			status:1,

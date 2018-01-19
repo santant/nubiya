@@ -62,7 +62,8 @@ export default {
 	  },
     methods:{
 		linkGo(){
-			this.vurRouterGo();
+//			this.vurRouterGo();
+			this.goApp();
 		},
 		clearStore(){
 

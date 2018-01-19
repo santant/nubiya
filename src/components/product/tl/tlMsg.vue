@@ -1,9 +1,9 @@
 <template>
 	<div id="tlMsg">
 		<mt-header title="艺术台历">
-		   <!--<router-link to=""  v-tap="{ methods:linkGo }" slot="left">
+		   <router-link to=""  v-tap="{ methods:linkGo }" slot="left">
 		    <mt-button icon="back">返回</mt-button>
-		  </router-link>-->
+		  </router-link>
 		</mt-header>
 		<div class="bottom">
 	    <div class="description">
@@ -68,7 +68,7 @@ export default {
 	  },
     methods:{
 		linkGo(){
-			this.vurRouterGo();
+			this.goApp();
 		}
     },
     mounted(){
