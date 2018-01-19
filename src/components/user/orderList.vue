@@ -171,7 +171,8 @@
         })
       },
       linkGo() {
-        this.$router.push({path: "/user"})
+      	this.goApp()
+//      this.$router.push({path: "/user"})
       }
     },
     mounted() {
