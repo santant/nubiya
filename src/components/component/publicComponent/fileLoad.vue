@@ -201,7 +201,7 @@
 						return;
 					}
 					var ok = validateUploadFiles($, array);
-					if(ok) {
+					if(ok) { 
 						//触发uploadStart
 						r.upload();
 					} else {
