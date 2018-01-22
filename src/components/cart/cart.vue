@@ -251,6 +251,9 @@ export default {
 			}
 		},
 		mounted(){
+			 if(this.$route.query.userDbId){
+		    	  	localStorage.setItem('userDbId', this.$route.query.userDbId)
+		    	  }
 			this.isindex =  this.$route.query.isindex
 			var jsons = {
 	  			userDbId:localStorage.getItem("userDbId"),

@@ -62,7 +62,7 @@
     </router-link>
     </div>
 
-    		<input type="file"  />
+    		<!--<input type="file"  />
 
 
     
@@ -70,7 +70,7 @@
     <form id="frm_identityA" style="margin-bottom: 200px;" action="" enctype="multipart/form-data"> 
     		<input type="file" name="file"  id="inputfile"/>
 		<input type="hidden" name="utoken" value="c146516f6cf649f4b33742c551634250"/>
-	</form>
+	</form>-->
 <div id="feedback">
 	<img src=""/>
 </div> 
@@ -95,22 +95,22 @@ export default {
     		this.addToSession();
     		
 
-		$("#inputfile").change(function(){
-		    var formData = new FormData($("#frm_identityA")[0]);  
-		    $.ajax({
-		        url:'http://testuser.artup.com/artup-user-api/f/modifyUserPhoto',
-		        type:'POST',
-		        data:formData,
-		        cache: false,
-		        contentType: false,    
-		        processData: false,    
-		        success:function(data){
-		          alert(JSON.stringify(data));
-		          $("#feedback img").attr("src",data.data.photoThumbUrl)
-//		          console.log(data.data.photoThumbUrl)
-		        }
-		    });
-		});
+//		$("#inputfile").change(function(){
+//		    var formData = new FormData($("#frm_identityA")[0]);  
+//		    $.ajax({
+//		        url:'http://testuser.artup.com/artup-user-api/f/modifyUserPhoto',
+//		        type:'POST',
+//		        data:formData,
+//		        cache: false,
+//		        contentType: false,    
+//		        processData: false,    
+//		        success:function(data){
+//		          alert(JSON.stringify(data));
+//		          $("#feedback img").attr("src",data.data.photoThumbUrl)
+////		          console.log(data.data.photoThumbUrl)
+//		        }
+//		    });
+//		});
 
 	}
 }

@@ -141,6 +141,9 @@ export default {
 		}
     },
     mounted(){
+    	 if(this.$route.query.userDbId){
+    	  	localStorage.setItem('userDbId', this.$route.query.userDbId)
+    	  }
     	   Indicator.open({text: '加载中...',spinnerType: 'fading-circle'})
 
 	   this.initCounpon()

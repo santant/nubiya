@@ -177,6 +177,9 @@
       }
     },
     mounted() {
+    	 if(this.$route.query.userDbId){
+    	  	localStorage.setItem('userDbId', this.$route.query.userDbId)
+    	  }
       let stateObj = {foo: 'bar'}
       history.pushState(stateObj, '', '#orderList')
       Api.car.orderListStatus({userDbId: localStorage.getItem('userDbId')}).then(res => {
