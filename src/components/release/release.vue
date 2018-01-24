@@ -42,10 +42,15 @@
     methods: { //执行的方法函数
       release_go() { //发布帖子
         this.release.id = localStorage.getItem('id')
+        var strArr = ''
+        this.imgData.forEach((el, index) => {
+          strArr += ',' + el.previewimg
+        })
+        this.release.imgData = strArr.substr(1) //帖子图片集合
         api.goods.addGoodsList(this.release).then(res => {
           if (res.data.code == 100) {
             Toast(res.data.msg)
-          }else{
+          } else {
             Toast(res.data.msg)
           }
         })
@@ -57,7 +62,7 @@
     mounted() { //全部渲染完毕
       var vm = this
       var r = new Resumable({
-        target: 'http://192.168.138.253:8888/think_weixin/public/xianyu/comment/getFileLoud',
+        target: 'http://localhost:8888/think_weixin/public/xianyu/comment/getFileLoud',
         query: {"uploadType": 1, "id": localStorage.getItem('id')},
         permanentErrors: [404, 500, 501],
         maxChunkRetries: 1,

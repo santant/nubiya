@@ -14,6 +14,9 @@ import Login from '@/components/user/login'
 // 发布商品
 import Release from '@/components/release/release'
 
+// 商品详情
+import goodsInfo from '@/components/home/goodsInfo'
+
 Vue.use(VueRouter)
 
 let router = new VueRouter({
@@ -43,6 +46,11 @@ let router = new VueRouter({
     path: '/goods/release',
     name: 'Release',
     component: Release
+  }, {
+    // 商品详情
+    path: '/goods/goodsInfo',
+    name: 'goodsInfo',
+    component: goodsInfo
   }, {
     path: '*',
     // 可以直接到404自己定义的组件

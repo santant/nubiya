@@ -20,10 +20,11 @@
       </mt-swipe>
     </div>
     <div class="mian_xy">
-      <div v-for="item in goddsList.data" class="div_goods">
+      <div v-for="(item,index) in goddsList.data" @click="goGoodsInfo(index)"  class="div_goods">
         <div class="portrait">
-          <img src="../../assets/image/banner01.jpg" alt="">
-          <span>name名称</span>
+          <img :src="HOSTIMG+item.previewimg" alt="">
+          <!--<img src="../../assets/image/banner01.jpg" alt="">-->
+          <span>{{item.username}}</span>
           <p>{{item.update_time}}</p>
         </div>
         <div class="goods_xp">
@@ -31,14 +32,8 @@
           <p class="centent_xp">{{item.mainText}}</p>
           <div class="box_img">
             <ul>
-              <li>
-                <img src="../../assets/image/coment.jpg" alt="">
-              </li>
-              <li>
-                <img src="../../assets/image/coment.jpg" alt="">
-              </li>
-              <li>
-                <img src="../../assets/image/coment.jpg" alt="">
+              <li v-for="imgItem in item.ordero_photo">
+                <img :src="HOSTIMG+imgItem" alt="">
               </li>
             </ul>
           </div>
@@ -80,6 +75,7 @@
   export default {
     data() {
       return {
+        HOSTIMG: HOSTIMG,
         goods: {
           page: 1  //开始默认开始的页数
         },
@@ -90,7 +86,10 @@
       navFooter
     },
     methods: { //执行的方法函数
-
+      goGoodsInfo(index){
+        var order_id = this.goddsList.data[index].order_id
+        console.log(order_id)
+      }
     },
     created() { //只执行一次
 
@@ -99,7 +98,15 @@
       //获取文章列表
       var jsons = {"pageSize": "10", "page": this.goods.page}
       api.goods.getGoodsList(jsons).then(res => {
+//        var templateData = JSON.parse(res.data.data[1].ordero_photo.replace(/&quot;/g, '"'))
+        res.data.data.forEach((el,index)=>{
+          var arr = []
+          arr = el.ordero_photo.split(',')
+          el.ordero_photo = arr
+        })
         this.goddsList = res.data
+
+        console.log(this.goddsList)
       })
     }
   }
